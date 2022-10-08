@@ -16,7 +16,6 @@ public class Fakedata {
         ObjectMapper mapper = new ObjectMapper();
       leadsData=  mapper.readValue(new File("src/main/resources/leadsFakeData.json"), new TypeReference<ArrayList<Lead>>() {
       });
-    System.out.println(leadsData.get(0).getFirstName());
         return leadsData;
     }
 }
