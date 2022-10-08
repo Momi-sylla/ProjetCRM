@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.internalLead.com/springsoap/gen"
+           targetNamespace="http://www.internalLead.com/springsoap/gen" elementFormDefault="qualified">
+
+    <xs:element name="getLeadsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="lowAnnualRevenue" type="xs:double"/>
+                <xs:element name="highAnnualRevenue" type="xs:double"/>
+                <xs:element name="State" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getleadsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Lead" type="tns:lead" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getLeadsByDateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="startDate" type="xs:date"/>
+                <xs:element name="endDate" type="xs:date"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getleadsByDateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Lead" type="tns:lead" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="lead">
+        <xs:sequence>
+            <xs:element name="firstName" type="xs:string"/>
+            <xs:element name="lastName" type="xs:string"/>
+            <xs:element name="annualRevenue" type="xs:double"/>
+            <xs:element name="phone" type="xs:string"/>
+            <xs:element name="street" type="xs:string"/>
+            <xs:element name="postalCode" type="xs:string"/>
+            <xs:element name="city" type="xs:string"/>
+            <xs:element name="country" type="xs:string"/>
+            <xs:element name="creationDate" type="xs:date"/>
+            <xs:element name="geographic" type="tns:geographic"/>
+            <xs:element name="company" type="xs:string"/>
+            <xs:element name="state" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="geographic">
+    <xs:sequence>
+    <xs:element name="longitude" type="xs:double"/>
+    <xs:element name="latitude" type="xs:double"/>
+    </xs:sequence>
+    </xs:complexType>
+</xs:schema>
