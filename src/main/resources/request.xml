@@ -1,0 +1,11 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://www.internalLead.com/springsoap/gen">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:getLeadsRequest>
+            <gs:lowAnnualRevenue>1000000</gs:lowAnnualRevenue>
+            <gs:highAnnualRevenue>100000000</gs:highAnnualRevenue>
+            <gs:State>blabla</gs:State>
+        </gs:getLeadsRequest>
+    </soapenv:Body>
+</soapenv:Envelope>

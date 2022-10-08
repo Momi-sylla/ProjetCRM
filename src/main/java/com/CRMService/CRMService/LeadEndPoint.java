@@ -1,4 +1,4 @@
-package endpoint;
+package com.CRMService.CRMService;
 
 import gen.GetLeadsRequest;
 import gen.GetleadsResponse;
@@ -7,12 +7,11 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import repositories.LeadRepo;
 
 @Endpoint
 public class LeadEndPoint {
     private static final String NAMESPACE_URI= "http://www.internalLead.com/springsoap/gen";
-    private LeadRepo leadRepo;
+    public LeadRepo leadRepo;
 
     @Autowired
     public LeadEndPoint(LeadRepo leadRepo) {
@@ -23,7 +22,7 @@ public class LeadEndPoint {
     @ResponsePayload
     public GetleadsResponse getLeads(@RequestPayload GetLeadsRequest request){
         GetleadsResponse response = new GetleadsResponse();
-        response.setLead(leadRepo.findLeads(request.getLowAnnualRevenue(),request.getHighAnnualRevenue(),request.getState()));
+        response.setLead(this.leadRepo.findLeads(request.getLowAnnualRevenue(),request.getHighAnnualRevenue(),request.getState()));
         return response;
     }
 }

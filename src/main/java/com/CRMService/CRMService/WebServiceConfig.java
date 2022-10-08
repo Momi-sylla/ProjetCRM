@@ -28,7 +28,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema leadSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("leadPort");
-        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setLocationUri("/ws/leads");
         wsdl11Definition.setTargetNamespace("http://www.internalLead.com/springsoap/gen");
         wsdl11Definition.setSchema(leadSchema);
         return wsdl11Definition;
