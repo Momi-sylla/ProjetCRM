@@ -34,7 +34,7 @@ public class InternalCRM implements Proxy {
 
     public List<Lead> findLeads(double lowAnnualRevenue, double highANnualRevenue, String state){
         List<Lead> matchedLeads = new ArrayList<>();
-       for(Lead lead : leads){
+       for(Lead lead : this.leads){
            if(lead.getAnnualRevenue()>lowAnnualRevenue || lead.getAnnualRevenue()<highANnualRevenue){
                matchedLeads.add(lead);
            }
