@@ -13,7 +13,7 @@ public class VirtualCRMServiceImpl implements VirtualCRMService {
     private static VirtualCRMServiceImpl instance = null;
 
     private VirtualCRMServiceImpl() {
-        this.proxyList = new ArrayList<>();
+        this.proxyList = new ArrayList<Proxy>();
     }
 
     public static VirtualCRMServiceImpl getVirtualCRMServiceImpl() {
@@ -23,8 +23,16 @@ public class VirtualCRMServiceImpl implements VirtualCRMService {
         return VirtualCRMServiceImpl.instance;
     }
 
+    public void addProxy (Proxy proxy) {
+        this.proxyList.add(proxy);
+    }
+
+    public void deleteProxy(Proxy proxy) {
+        this.proxyList.remove(proxy);
+    }
+
     @Override
-    public List<Lead> findLeads(double lowAnnualRevenue, double highANnualRevenue, String state) throws Exception {
+    public List<Lead> findLeads(double lowAnnualRevenue, double highAnnualRevenue, String state) throws Exception {
         return null;
     }
 
