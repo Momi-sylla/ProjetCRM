@@ -1,5 +1,6 @@
 package com.CRMService.CRMService;
 
+import crm.InternalCRM;
 import gen.GetLeadsRequest;
 import gen.GetleadsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,21 +9,23 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import java.io.IOException;
+
 @Endpoint
 public class LeadEndPoint {
     private static final String NAMESPACE_URI= "http://www.internalLead.com/springsoap/gen";
-    public LeadRepo leadRepo;
+    public InternalCRM internalCRM;
 
     @Autowired
-    public LeadEndPoint(LeadRepo leadRepo) {
-        this.leadRepo = leadRepo;
+    public LeadEndPoint() throws IOException {
+        this.internalCRM = InternalCRM.getInternalCRM();
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI,localPart = "getLeadsRequest")
     @ResponsePayload
     public GetleadsResponse getLeads(@RequestPayload GetLeadsRequest request){
         GetleadsResponse response = new GetleadsResponse();
-        response.setLead(this.leadRepo.findLeads(request.getLowAnnualRevenue(),request.getHighAnnualRevenue(),request.getState()));
+        response.setLead(this.internalCRM.findLeads(request.getLowAnnualRevenue(),request.getHighAnnualRevenue(),request.getState()));
         return response;
     }
 }

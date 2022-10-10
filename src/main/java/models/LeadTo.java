@@ -1,6 +1,5 @@
-package CRM;
+package models;
 
-import geolocation.GeographicPointTo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.net.URI;

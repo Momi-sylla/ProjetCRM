@@ -12,7 +12,7 @@
 	<artifactId>CRMService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CRMService</name>
-	<description>CRM service for leads</description>
+	<description>crm service for leads</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

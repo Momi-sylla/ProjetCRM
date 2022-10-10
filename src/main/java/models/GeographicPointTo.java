@@ -1,4 +1,4 @@
-package geolocation;
+package models;
 
 public class GeographicPointTo {
     private double latitude;

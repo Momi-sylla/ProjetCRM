@@ -1,5 +1,9 @@
-package CRM;
+package crm;
 
+import gen.Lead;
+import interfaces.Proxy;
+import mappers.VirtualCRMMappers;
+import models.LeadTo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,8 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class CRMService implements VirtualCRMService{
-
+public class SalesForceCRM implements Proxy {
     private final String CLIENT_ID = "3MVG9t0sl2P.pByp0SnSA6Bzh2XDVY0n37pe_gz.hrStcxxQSVIBhVP20m71vfl92KK7.whRIvdhvbrVbIw.v";
     private final String CLIENT_SECRET = "89DAE17221F8CDA71D4BFD665060A1033A902B603B9615A823ED18D7DD4A0A1E";
     private final String USERNAME = "msylla@univ-angers.fr";
@@ -24,16 +27,24 @@ public class CRMService implements VirtualCRMService{
     private final String URI = "https://universityofangers2-dev-ed.my.salesforce.com/services/data/v45.0/query?";
     private static String TOKEN;
     private static String URL;
+    private static SalesForceCRM instance = null;
 
-    public CRMService() throws URISyntaxException, IOException, InterruptedException {
+    private SalesForceCRM() throws URISyntaxException, IOException, InterruptedException {
         ArrayList<String> data = getUrlAndToken();
-        CRMService.URL = data.get(0);
-        CRMService.TOKEN = data.get(1);
+        SalesForceCRM.URL = data.get(0);
+        SalesForceCRM.TOKEN = data.get(1);
+    }
+
+    public static SalesForceCRM getSalesForceCRM() throws URISyntaxException, IOException, InterruptedException {
+        if (SalesForceCRM.instance == null) {
+            SalesForceCRM.instance = new SalesForceCRM();
+        }
+        return SalesForceCRM.instance;
     }
 
     @Override
-    public List<LeadTo> findLeads(double lowAnnualRevenue, double highANnualRevenue, String state) throws Exception {
-        ArrayList<LeadTo> leads= new ArrayList<>();
+    public List<Lead> findLeads(double lowAnnualRevenue, double highANnualRevenue, String state) throws Exception {
+        ArrayList<Lead> leads= new ArrayList<>();
 
         //encodage des caractères speciaux
         String sup= URLEncoder.encode(">","UTF-8");
@@ -45,12 +56,11 @@ public class CRMService implements VirtualCRMService{
 
         //requête SOQL pour saleforce
         String sqlRequest = "q=SELECT+FirstName,LastName,phone,street,postalcode,city,country,AnnualRevenue+FROM+Lead+where+AnnualRevenue+"+sup+"+"+low+"+and+"+"AnnualRevenue+"+inf+"+"+high;
-//		String sqlRequest = "q=SELECT+FirstName,LastName,ConvertedAccountId,AnnualRevenue+FROM+Lead+where+AnnualRevenue+=+350000000";
 
         //requete get pour la réupération des informations
         HttpRequest getReq = (HttpRequest) HttpRequest.newBuilder()
                 .uri(new URI(URI+sqlRequest))
-                .headers("Content-Type", "application/x-www-form-urlencoded","Authorization","Bearer " + CRMService.TOKEN,"Accept","application/json")
+                .headers("Content-Type", "application/x-www-form-urlencoded","Authorization","Bearer " + SalesForceCRM.TOKEN,"Accept","application/json")
                 .GET()
                 .build();
         HttpClient client = HttpClient.newHttpClient();
@@ -70,14 +80,14 @@ public class CRMService implements VirtualCRMService{
             lead.setCity(((JSONObject) record).getString("City"));
             lead.setCountry(((JSONObject) record).getString("Country"));
             lead.getGeoGraphicPointTo();
-            leads.add(lead);
+            leads.add(VirtualCRMMappers.mapLeadToFromLead(lead));
         }
 
         return leads;
     }
 
     @Override
-    public List<LeadTo> findLeadsByDate(Calendar StartDate, Calendar endDate) {
+    public List<Lead> findLeadsByDate(Calendar StartDate, Calendar endDate) {
         // TODO Auto-generated method stub
         return null;
     }
