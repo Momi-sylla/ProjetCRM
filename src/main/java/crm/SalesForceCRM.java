@@ -43,23 +43,23 @@ public class SalesForceCRM implements Proxy {
     }
 
     @Override
-    public List<Lead> findLeads(double lowAnnualRevenue, double highANnualRevenue, String state) throws Exception {
+    public List<Lead> getLeads(double lowAnnualRevenue, double highANnualRevenue, String state) throws Exception {
         ArrayList<Lead> leads= new ArrayList<>();
 
         //encodage des caractères speciaux
-        String sup= URLEncoder.encode(">","UTF-8");
+        String sup = URLEncoder.encode(">","UTF-8");
         String inf = URLEncoder.encode("<","UTF-8");
 
         //conversion des doubles pour eviter la notation scientifique
-        String low =new BigDecimal(lowAnnualRevenue).toPlainString();
-        String high =new BigDecimal(highANnualRevenue).toPlainString();
+        String low = new BigDecimal(lowAnnualRevenue).toPlainString();
+        String high = new BigDecimal(highANnualRevenue).toPlainString();
 
         //requête SOQL pour saleforce
         String sqlRequest = "q=SELECT+FirstName,LastName,phone,street,postalcode,city,country,AnnualRevenue+FROM+Lead+where+AnnualRevenue+"+sup+"+"+low+"+and+"+"AnnualRevenue+"+inf+"+"+high;
 
         //requete get pour la réupération des informations
         HttpRequest getReq = (HttpRequest) HttpRequest.newBuilder()
-                .uri(new URI(URI+sqlRequest))
+                .uri(new URI(URI + sqlRequest))
                 .headers("Content-Type", "application/x-www-form-urlencoded","Authorization","Bearer " + SalesForceCRM.TOKEN,"Accept","application/json")
                 .GET()
                 .build();
@@ -87,7 +87,7 @@ public class SalesForceCRM implements Proxy {
     }
 
     @Override
-    public List<Lead> findLeadsByDate(Calendar StartDate, Calendar endDate) {
+    public List<Lead> getLeadsByDate(Calendar StartDate, Calendar endDate) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -98,8 +98,7 @@ public class SalesForceCRM implements Proxy {
         HttpRequest postReq = (HttpRequest) HttpRequest.newBuilder()
                 .uri(new URI("https://login.salesforce.com/services/oauth2/token"))
                 .header("Content-Type", "application/x-www-form-urlencoded")
-                .POST(HttpRequest.BodyPublishers.ofString("grant_type=password "+"&client_id="+CLIENT_ID +
-                        "&client_secret="+CLIENT_SECRET + "&username="+USERNAME + "&password="+PASSWORD))
+                .POST(HttpRequest.BodyPublishers.ofString("grant_type=password " + "&client_id="+ CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&username=" + USERNAME + "&password=" + PASSWORD))
                 .build();
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String>postResponses = client.send(postReq, HttpResponse.BodyHandlers.ofString());
@@ -110,4 +109,5 @@ public class SalesForceCRM implements Proxy {
 
         return urlAndToken;
     }
+
 }

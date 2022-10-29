@@ -16,7 +16,7 @@ public class CRMServiceController {
 
     @GetMapping("/lead")
     public List<Lead> getMyLeads() throws Exception {
-        leads = SalesForceCRM.getSalesForceCRM().findLeads(50000,1000000000,"");
+        leads = SalesForceCRM.getSalesForceCRM().getLeads(50000,1000000000,"");
         return leads;
 
      /*
@@ -24,7 +24,7 @@ public class CRMServiceController {
         VirtualCRMServiceImpl virtualCRMService = VirtualCRMServiceImpl.getVirtualCRMServiceImpl();
         List<Lead> myLeads = new ArrayList<Lead>();
         for(Proxy proxy : virtualCRMService.getProxyList()) {
-            for(Lead lead : proxy.findLeads(50000,1000000000,""))
+            for(Lead lead : proxy.getLeads(50000,1000000000,""))
                 myLeads.add(lead);
         }
         myLeads = SalesForceCRM.getSalesForceCRM().findLeads(50000,1000000000,"");

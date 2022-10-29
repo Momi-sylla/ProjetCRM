@@ -25,7 +25,7 @@ public class LeadEndPoint {
     @ResponsePayload
     public GetleadsResponse getLeads(@RequestPayload GetLeadsRequest request){
         GetleadsResponse response = new GetleadsResponse();
-        response.setLead(this.internalCRM.findLeads(request.getLowAnnualRevenue(),request.getHighAnnualRevenue(),request.getState()));
+        response.setLead(this.internalCRM.getLeadsInFakeData(request.getLowAnnualRevenue(),request.getHighAnnualRevenue(),request.getState()));
         return response;
     }
 }
