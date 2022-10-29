@@ -49,6 +49,7 @@ public class InternalCRM implements Proxy {
         return matchedLeads;
     }
 
+
     @Override
     public List<Lead> getLeads(double lowAnnualRevenue, double highAnnualRevenue, String state) throws Exception {
         ArrayList<Lead> leads= new ArrayList<>();
@@ -73,11 +74,22 @@ public class InternalCRM implements Proxy {
                 .build();
 
         HttpClient client = HttpClient.newHttpClient();
-        HttpResponse<String> getResponses = client.send(postReq, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> responses = client.send(postReq, HttpResponse.BodyHandlers.ofString());
 
-        JSONObject results = XML.toJSONObject(getResponses.body());
-        JSONArray records = results.getJSONArray("SOAP-ENV:Envelope.SOAP-ENV:Body.ns2:getleadsResponse.ns2:Lead");
+        String res = responses.body().replace("xmlns:","");
+        String res2= res.replace("SOAP-ENV:","ENV");//replaces all occurrences of "is" to "was"
+        String res3= res2.replace("ns2:","");//replaces all occurrences of "is" to "was"
+
+
+        JSONObject results = XML.toJSONObject(res3);
         System.out.println(results);
+        JSONObject env = results.getJSONObject("ENVEnvelope");
+        JSONObject env2 = env.getJSONObject("ENVBody");
+        JSONObject env3= env2.getJSONObject("getleadsResponse");
+
+        System.out.println(env3);
+
+        JSONArray records = env3.getJSONArray("Lead");
         System.out.println(records);
 /*
         for(Object record : records) {
