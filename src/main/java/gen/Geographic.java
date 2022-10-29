@@ -5,7 +5,6 @@
 // Généré le : 2022.10.08 à 12:39:10 PM CEST 
 //
 
-
 package gen;
 
 import javax.xml.bind.annotation.XmlAccessType;
