@@ -99,9 +99,13 @@ public class LeadTo {
     }
 
     public GeographicPointTo getGeoGraphicPointTo() throws URISyntaxException, IOException, InterruptedException, IOException, URISyntaxException {
-        street = street.replace(" " , "+");
+        String myCity = this.city.replace(" " , "+");
+        String myCountry = this.country.replace(" " , "+");
+        String myPostalCode = this.postalCode.replace(" " , "+");
+        String myStreet = this.street.replace(" " , "+");
+
         HttpRequest getReq = (HttpRequest) HttpRequest.newBuilder()
-                .uri(new URI(URI + "city=" + this.city + "&country=" + this.country + "&postalcode=" + this.postalCode + "&street=" + this.street + "&format=json&limit=1"))
+                .uri(new URI(URI + "city=" + myCity + "&country=" + myCountry + "&postalcode=" + myPostalCode + "&street=" + myStreet + "&format=json&limit=1"))
                 .GET()
                 .build();
         HttpClient client = HttpClient.newHttpClient();
