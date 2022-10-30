@@ -7,6 +7,7 @@ import models.LeadTo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
@@ -15,9 +16,13 @@ import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class SalesForceCRM implements Proxy {
     private final String CLIENT_ID = "3MVG9t0sl2P.pByp0SnSA6Bzh2XDVY0n37pe_gz.hrStcxxQSVIBhVP20m71vfl92KK7.whRIvdhvbrVbIw.v";
@@ -55,20 +60,33 @@ public class SalesForceCRM implements Proxy {
         String high = new BigDecimal(highANnualRevenue).toPlainString();
 
         //requête SOQL pour saleforce
-        String sqlRequest = "q=SELECT+FirstName,LastName,phone,street,postalcode,city,country,AnnualRevenue+FROM+Lead+where+AnnualRevenue+"+sup+"+"+low+"+and+"+"AnnualRevenue+"+inf+"+"+high;
+        String sqlRequest = "q=SELECT+FirstName,LastName,phone,street,postalcode,city,CreatedDate,country,AnnualRevenue+FROM+Lead+where+AnnualRevenue+"+sup+"+"+low+"+and+"+"AnnualRevenue+"+inf+"+"+high;
+        leads=recupLeads(getSaleforceResponses(sqlRequest));
 
-        //requete get pour la réupération des informations
-        HttpRequest getReq = (HttpRequest) HttpRequest.newBuilder()
-                .uri(new URI(URI + sqlRequest))
-                .headers("Content-Type", "application/x-www-form-urlencoded","Authorization","Bearer " + SalesForceCRM.TOKEN,"Accept","application/json")
-                .GET()
-                .build();
-        HttpClient client = HttpClient.newHttpClient();
-        HttpResponse<String> getResponses = client.send(getReq, HttpResponse.BodyHandlers.ofString());
+       /* for(Object record : records) {
+            LeadTo lead = new LeadTo();
+            lead.setFirstName(((JSONObject) record).getString("FirstName"));
+            lead.setLastName(((JSONObject) record).getString("LastName"));
+            lead.setAnnualRevenue(((JSONObject) record).getDouble("AnnualRevenue"));
+            lead.setPhone(((JSONObject) record).getString("Phone"));
+            lead.setStreet(((JSONObject) record).getString("Street"));
+            lead.setPostalCode(((JSONObject) record).getString("PostalCode"));
+            lead.setCity(((JSONObject) record).getString("City"));
+            lead.setCountry(((JSONObject) record).getString("Country"));
+            lead.getGeoGraphicPointTo();
+            String dateTimeZone = ((JSONObject) record).getString("CreatedDate");
+            dateTimeZone=dateTimeZone.substring(0,dateTimeZone.indexOf("T"));
+            Date date = toDate(dateTimeZone);
+            lead.setCreationDate(date);
+            leads.add(VirtualCRMMappers.mapLeadToFromLead(lead));
 
-        JSONObject results = new JSONObject(getResponses.body());
-        JSONArray records = results.getJSONArray("records");
+        }*/
 
+        return leads;
+    }
+
+    public ArrayList<Lead> recupLeads(JSONArray records) throws URISyntaxException, IOException, InterruptedException, ParseException, DatatypeConfigurationException {
+        ArrayList<Lead> leads= new ArrayList<>();
         for(Object record : records) {
             LeadTo lead = new LeadTo();
             lead.setFirstName(((JSONObject) record).getString("FirstName"));
@@ -80,16 +98,48 @@ public class SalesForceCRM implements Proxy {
             lead.setCity(((JSONObject) record).getString("City"));
             lead.setCountry(((JSONObject) record).getString("Country"));
             lead.getGeoGraphicPointTo();
+            String dateTimeZone = ((JSONObject) record).getString("CreatedDate");
+            dateTimeZone=dateTimeZone.substring(0,dateTimeZone.indexOf("T"));
+            Date date = toDate(dateTimeZone);
+            lead.setCreationDate(date);
             leads.add(VirtualCRMMappers.mapLeadToFromLead(lead));
-        }
 
+        }
         return leads;
     }
 
+    public JSONArray getSaleforceResponses(String sqlRequest) throws URISyntaxException, IOException, InterruptedException {
+        //requete get pour la réupération des informations
+        HttpRequest getReq = (HttpRequest) HttpRequest.newBuilder()
+                .uri(new URI(URI + sqlRequest))
+                .headers("Content-Type", "application/x-www-form-urlencoded","Authorization","Bearer " + SalesForceCRM.TOKEN,"Accept","application/json")
+                .GET()
+                .build();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> getResponses = client.send(getReq, HttpResponse.BodyHandlers.ofString());
+
+        JSONObject results = new JSONObject(getResponses.body());
+        JSONArray records = results.getJSONArray("records");
+        return records;
+    }
+    public static Date toDate(String dateStr) throws ParseException {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        LocalDate dateTime = LocalDate.parse(dateStr, formatter);
+        Date date = Date.from(dateTime.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            return date;
+    }
     @Override
-    public List<Lead> getLeadsByDate(Calendar StartDate, Calendar endDate) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Lead> getLeadsByDate(Calendar StartDate, Calendar endDate) throws IOException, InterruptedException, URISyntaxException, DatatypeConfigurationException, ParseException {
+        ArrayList<Lead> leads= new ArrayList<>();
+        //encodage des caractères speciaux
+        String sup = URLEncoder.encode(">","UTF-8");
+        String inf = URLEncoder.encode("<","UTF-8");
+        String startDateStr =StartDate.toString();
+        String endDateStr =endDate.toString();
+        String sqlRequest = "q=SELECT+FirstName,LastName,phone,street,postalcode,city,CreatedDate,country,AnnualRevenue+FROM+Lead+where+CreatedDate+"+sup+"+"+startDateStr+"+and+"+"AnnualRevenue+"+inf+"+"+endDateStr;
+        leads=recupLeads(getSaleforceResponses(sqlRequest));
+        return leads;
     }
 
     public ArrayList<String> getUrlAndToken() throws URISyntaxException, IOException, InterruptedException {

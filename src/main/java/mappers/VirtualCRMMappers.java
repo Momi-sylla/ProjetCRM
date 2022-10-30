@@ -5,8 +5,13 @@ import gen.Geographic;
 import gen.Lead;
 import models.GeographicPointTo;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class VirtualCRMMappers {
 
@@ -45,7 +50,7 @@ public class VirtualCRMMappers {
         return null;
     }
 
-    public static Lead mapLeadToFromLead(LeadTo leadTo) throws URISyntaxException, IOException, InterruptedException {
+    public static Lead mapLeadToFromLead(LeadTo leadTo) throws URISyntaxException, IOException, InterruptedException, DatatypeConfigurationException {
         if (leadTo != null) {
             Lead lead = new Lead();
             lead.setFirstName(leadTo.getFirstName());
@@ -56,9 +61,21 @@ public class VirtualCRMMappers {
             lead.setPostalCode(leadTo.getPostalCode());
             lead.setCity(leadTo.getCity());
             lead.setCountry(leadTo.getCountry());
+            lead.setCreationDate(mapDateToXMLGregorianCalendar(leadTo.getCreationDate()));
+
             lead.setGeographic(mapGeographicPointToFromGeographic(leadTo.getGeoGraphicPointTo()));
             return lead;
         }
         return null;
+    }
+
+    public static XMLGregorianCalendar mapDateToXMLGregorianCalendar(Date date) throws DatatypeConfigurationException {
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        gregorianCalendar.setTime(date);
+
+        XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory
+                .newInstance()
+                .newXMLGregorianCalendar(gregorianCalendar);
+        return xmlGregorianCalendar;
     }
 }
