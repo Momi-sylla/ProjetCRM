@@ -1,0 +1,56 @@
+
+html {
+overflow-y: hidden;
+}
+
+#carouselExampleIndicators {
+height: 15px;
+padding: auto;
+}
+
+#page-accueil{
+height: auto;
+margin: 30px 5%;
+padding: 40px 15px 15px 15px
+}
+
+#playText {
+background-image: linear-gradient(105deg, rgba(0,249,255,1) 39%, rgba(  128, 251, 171, 52) 96%);
+}
+
+#playForm {
+background-image: url("../Image/bombermanPlayImage.jpg");
+background-color: transparent;
+margin: 4% auto;
+}
+
+.contact {
+font-weight: bold;
+color: blue;
+}
+
+#btnPlay {
+background-color: #14eef6; color: black;
+transition: background .2s ease;
+border-style: inset;
+border-radius: 8px;
+padding: auto 225px;
+}
+
+#btnPlay:hover {
+background-color: #55fa15;
+}
+
+.userName {
+font-size: 25px;
+font-family: fantasy;
+font-weight: bold;
+color: #14eef6;
+text-decoration: overline;
+}
+
+.contactNom {
+font-size: 20px;
+font-family: fantasy;
+font-weight: bold;
+}

@@ -56,9 +56,9 @@
     </xs:complexType>
 
     <xs:complexType name="geographic">
-    <xs:sequence>
-    <xs:element name="longitude" type="xs:double"/>
-    <xs:element name="latitude" type="xs:double"/>
-    </xs:sequence>
+        <xs:sequence>
+            <xs:element name="longitude" type="xs:double"/>
+            <xs:element name="latitude" type="xs:double"/>
+        </xs:sequence>
     </xs:complexType>
 </xs:schema>
