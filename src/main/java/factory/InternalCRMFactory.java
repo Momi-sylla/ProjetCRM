@@ -2,7 +2,6 @@ package factory;
 
 import crm.InternalCRM;
 import interfaces.Proxy;
-import factory.ProxyFactory;
 
 import java.io.IOException;
 

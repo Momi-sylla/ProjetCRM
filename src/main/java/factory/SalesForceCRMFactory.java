@@ -2,7 +2,6 @@ package factory;
 
 import crm.SalesForceCRM;
 import interfaces.Proxy;
-import factory.ProxyFactory;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

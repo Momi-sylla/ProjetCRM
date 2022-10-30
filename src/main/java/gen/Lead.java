@@ -5,7 +5,6 @@
 // Généré le : 2022.10.08 à 12:39:10 PM CEST 
 //
 
-
 package gen;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,7 +13,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
-
 
 /**
  * <p>Classe Java pour lead complex type.
