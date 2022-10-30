@@ -96,7 +96,7 @@ public class InternalCRM implements Proxy {
             leadTo.setPostalCode(Integer.toString(((JSONObject) record).getInt("postalCode")));
             leadTo.setCity(((JSONObject) record).getString("city"));
             leadTo.setCountry(((JSONObject) record).getString("country"));
-            leadTo.getGeoGraphicPointTo();
+            // leadTo.getGeoGraphicPointTo();
             leads.add(VirtualCRMMappers.mapLeadToFromLead(leadTo));
         }
 
