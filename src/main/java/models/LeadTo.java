@@ -9,6 +9,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Calendar;
+import java.util.Date;
 
 public class LeadTo {
     private String firstName;
@@ -19,7 +20,7 @@ public class LeadTo {
     private String postalCode;
     private String city;
     private String country;
-    private Calendar creationDate;
+    private Date creationDate;
     private GeographicPointTo geoGraphicPointTo;
     private String company;
     private String state;
@@ -90,12 +91,14 @@ public class LeadTo {
         this.country = country;
     }
 
-    public Calendar getCreationDate() {
-        return creationDate;
+    public Date getCreationDate() {
+        return this.creationDate;
     }
 
-    public void setCreationDate(Calendar creationDate) {
-        this.creationDate = creationDate;
+    public void setCreationDate(Date creationDate) {
+
+        this.creationDate = new Date(creationDate.getTime());
+        System.out.println("date de creation : "+this.creationDate);
     }
 
     public GeographicPointTo getGeoGraphicPointTo() throws URISyntaxException, IOException, InterruptedException, IOException, URISyntaxException {
@@ -117,7 +120,7 @@ public class LeadTo {
             this.geoGraphicPointTo = new GeographicPointTo((locations.getDouble("lat")), locations.getDouble("lon"));
             return geoGraphicPointTo;
         } else {
-            System.out.println("Address '" + this.street.replace("+", " ") + ", " + this.postalCode + " " + this.city + "' not found!");
+          //  System.out.println("Address '" + this.street.replace("+", " ") + ", " + this.postalCode + " " + this.city + "' not found!");
             return null;
         }
     }
