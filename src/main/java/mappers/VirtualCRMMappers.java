@@ -62,7 +62,6 @@ public class VirtualCRMMappers {
             lead.setCity(leadTo.getCity());
             lead.setCountry(leadTo.getCountry());
             lead.setCreationDate(mapDateToXMLGregorianCalendar(leadTo.getCreationDate()));
-
             lead.setGeographic(mapGeographicPointToFromGeographic(leadTo.getGeoGraphicPointTo()));
             return lead;
         }
