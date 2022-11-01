@@ -23,6 +23,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active mr-2">
+                    <button class="nav-link" onclick="window.location.href = 'http://localhost:8080/form';">Form</button>
+                </li>
+                <li class="nav-item active mr-2">
                     <button class="nav-link" onclick="window.location.href = 'http://localhost:8080/lead';">Show Leads</button>
                 </li>
                 <li class="nav-item active mr-2">
@@ -64,19 +67,6 @@
     <div id="page-accueil" class="card pt-5">
         <div id="contenu" class="container mt-3 mb-3">
             <h1>Bienvenue sur notre page de gestation des CRM</h1>
-
-            <form action="leadsByForm" method="post" th:object="leadInfo">
-                <label for="salaireMinimum">Salaire Minimum : </label>
-                <input type="number" id="salaireMinimum" th:field="*{salaireMinimum}" value="5000" step="1000" /> <br />
-
-                <label for="salaireMaximum">Salaire Maximum : </label>
-                <input type="number" id="salaireMaximum" th:field="*{salaireMaximum}" value="10000000" step="1000" /> <br />
-
-                <label for="etat">Etat : </label>
-                <input type="text" id="etat" th:field="*{etat}" placeholder="null"/> <br />
-
-                <input type="submit" value="Save" />
-            </form>
         </div>
     </div>
     <!-- LE FOOTER -->

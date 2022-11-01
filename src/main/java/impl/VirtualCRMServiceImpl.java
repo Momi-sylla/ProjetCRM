@@ -22,7 +22,7 @@ public class VirtualCRMServiceImpl implements VirtualCRMService {
     private VirtualCRMServiceImpl() throws IOException, URISyntaxException, InterruptedException {
         this.proxyFactoryList = new Hashtable<String, ProxyFactory>();
         this.proxyList = new ArrayList<>();
-      //  this.addProxy(this.createProxy("InternalCRM"));
+        this.addProxy(this.createProxy("InternalCRM"));
         this.addProxy(this.createProxy("SalesForceCRM"));
     }
 

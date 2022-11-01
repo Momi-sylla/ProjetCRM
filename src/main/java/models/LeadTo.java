@@ -96,9 +96,7 @@ public class LeadTo {
     }
 
     public void setCreationDate(Date creationDate) {
-
         this.creationDate = new Date(creationDate.getTime());
-        System.out.println("date de creation : "+this.creationDate);
     }
 
     public GeographicPointTo getGeoGraphicPointTo() throws URISyntaxException, IOException, InterruptedException, IOException, URISyntaxException {

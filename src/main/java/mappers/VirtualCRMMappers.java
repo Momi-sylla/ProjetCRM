@@ -70,12 +70,14 @@ public class VirtualCRMMappers {
     }
 
     public static XMLGregorianCalendar mapDateToXMLGregorianCalendar(Date date) throws DatatypeConfigurationException {
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        gregorianCalendar.setTime(date);
-
-        XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory
-                .newInstance()
-                .newXMLGregorianCalendar(gregorianCalendar);
-        return xmlGregorianCalendar;
+        if(date != null) {
+            GregorianCalendar gregorianCalendar = new GregorianCalendar();
+            gregorianCalendar.setTime(date);
+            XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory
+                    .newInstance()
+                    .newXMLGregorianCalendar(gregorianCalendar);
+            return xmlGregorianCalendar;
+        }
+        return null;
     }
 }

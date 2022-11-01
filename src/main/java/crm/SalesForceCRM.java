@@ -61,7 +61,8 @@ public class SalesForceCRM implements Proxy {
 
         //requête SOQL pour saleforce
         String sqlRequest = "q=SELECT+FirstName,LastName,phone,street,postalcode,city,CreatedDate,country,AnnualRevenue+FROM+Lead+where+AnnualRevenue+"+sup+"+"+low+"+and+"+"AnnualRevenue+"+inf+"+"+high;
-        leads=recupLeads(getSaleforceResponses(sqlRequest));
+        System.out.println("SQL Request : " + sqlRequest);
+        leads = recupLeads(getSaleforceResponses(sqlRequest));
 
        /* for(Object record : records) {
             LeadTo lead = new LeadTo();
@@ -118,6 +119,7 @@ public class SalesForceCRM implements Proxy {
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> getResponses = client.send(getReq, HttpResponse.BodyHandlers.ofString());
 
+        System.out.println("Body from Salesforce : " + getResponses.body());
         JSONObject results = new JSONObject(getResponses.body());
         JSONArray records = results.getJSONArray("records");
         return records;

@@ -12,8 +12,8 @@ public class LeadInfo {
     }
 
     public LeadInfo() {
-        this.salaireMinimum = 0;
-        this.salaireMaximum = 100000000;
+        this.salaireMinimum = 5000;
+        this.salaireMaximum = 10000;
         this.etat = null;
     }
 
