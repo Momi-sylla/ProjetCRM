@@ -44,13 +44,13 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item">
-            <img class="d-block w-100" src="../Image/img1.jpg" alt="First slide">
+            <img class="d-block w-100" th:src="@{/Image/img1.jpg}" alt="First slide">
         </div>
         <div class="carousel-item active">
-            <img class="d-block w-100" src="../Image/img2.jpg" alt="Second slide">
+            <img class="d-block w-100" th:src="@{/Image/img2.jpg}" alt="Second slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="../Image/img3.jpg" alt="Third slide">
+            <img class="d-block w-100" th:src="@{/Image/img3.jpg}" alt="Third slide">
         </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -66,27 +66,24 @@
 <!-- LE CONTENU DE CHAQUE PAGE -->
 <div id="page-accueil" class="card pt-5">
     <div id="contenu" class="container mt-3 mb-3">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">FirstName</th>
-                <th scope="col">LastName</th>
-                <th scope="col">AnnualRevenue</th>
-                <th scope="col">City</th>
-            </tr>
-            </thead>
-
-            <tbody>
-                <h2 th:text="${'List of ' + nbCustomers + ' customers'}" />
-                <tr th:each="customer:${customers}">
-                    <th scope="row" th:text="${customer.firstName}" />
-                    <td th:text="${customer.lastName}" />
-                    <td th:text="${customer.annualRevenue}" />
-                    <td style="text-align: center;" th:text="${customer.city}" />
-                </tr>
-            </tbody>
-
-        </table>
+        <h2 th:text="${'List of ' + nbCustomers + ' customers'}" />
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 mb-4" th:each="customer:${customers}">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" th:src="@{/Image/icon.png}" alt="icon"></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#" th:text="${customer.firstName + ' ' + customer.lastName}" />
+                        </h4>
+                        <p class="card-text">
+                            <label  th:text="${'Annual Salary : ' + customer.annualRevenue}" /> <br />
+                            <label  th:text="${'City : ' + customer.city}" /> <br />
+                            <label  th:text="${'Street : ' + customer.street}" /> <br />
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

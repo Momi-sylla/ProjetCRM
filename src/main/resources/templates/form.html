@@ -44,13 +44,13 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item">
-                <img class="d-block w-100" src="../Image/img1.jpg" alt="First slide">
+                <img class="d-block w-100" th:src="@{/Image/img1.jpg}" alt="First slide">
             </div>
             <div class="carousel-item active">
-                <img class="d-block w-100" src="../Image/img2.jpg" alt="Second slide">
+                <img class="d-block w-100" th:src="@{/Image/img2.jpg}" alt="Second slide">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="../Image/img3.jpg" alt="Third slide">
+                <img class="d-block w-100" th:src="@{/Image/img3.jpg}" alt="Third slide">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -66,15 +66,23 @@
     <!-- LE CONTENU DE CHAQUE PAGE -->
     <div id="page-accueil" class="card pt-5">
         <div id="contenu" class="container mt-3 mb-3">
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Form</h5>
+
             <form th:action="@{/leadsByForm}" method="post" th:object="${leadInfo}">
-                <label for="salaireMinimum">Salaire Minimum : </label>
-                <input type="number" id="salaireMinimum" th:field="*{salaireMinimum}" max="1000000000" size="10" step="5000" /> <br />
+                <div class="form-floating mb-3">
+                    <label for="salaireMinimum">Salaire Minimum</label>
+                    <input type="number" id="salaireMinimum" class="form-control" th:field="*{salaireMinimum}" max="1000000000" size="10" step="5000" />
+                </div>
 
-                <label for="salaireMaximum">Salaire Maximum : </label>
-                <input type="number" id="salaireMaximum" th:field="*{salaireMaximum}" max="1000000000" size="10" step="10000" /> <br />
+                <div class="form-floating mb-3">
+                    <label for="salaireMaximum">Salaire Maximum</label>
+                    <input type="number" id="salaireMaximum" class="form-control" th:field="*{salaireMaximum}" max="1000000000" size="10" step="10000" />
+                </div>
 
-                <label for="etat">Etat : </label>
-                <input type="text" id="etat" th:field="*{etat}" placeholder="null"/> <br />
+                <div class="form-floating mb-3">
+                    <label for="etat">Etat</label>
+                    <input type="text" id="etat" class="form-control" th:field="*{etat}" placeholder="null"/>
+                </div>
 
                 <input type="submit" value="Send" />
             </form>

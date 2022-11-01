@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
-<body id="page-top">
+<body id="page-top" style="background-color: #5D6D7E;">
     <!-- LA BARRE DE NAVIAGATION -->
     <nav class="navbar navbar-expand-md navbar-light py-4 bg-dark">
         <a class="navbar-brand text-white" href="http://localhost:8080/">Site Mashup : <span class="userName">SYLLA - TOURE - BARRO</span></a>
@@ -35,38 +35,35 @@
         </div>
     </nav>
 
-<!-- LES CAROUSELS POUR DEFILER LES IMAGES -->
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item">
-                <img class="d-block w-100" src="../Image/img1.jpg" alt="First slide">
-            </div>
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="../Image/img2.jpg" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="../Image/img3.jpg" alt="Third slide">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-
     <!-- LE CONTENU DE CHAQUE PAGE -->
     <div id="page-accueil" class="card pt-5">
         <div id="contenu" class="container mt-3 mb-3">
             <h1>Bienvenue sur notre page de gestation des CRM</h1>
+            <hr />
+            <h3>Informations sur les auteurs du site</h3>
+            <p style="font-weight: bold;">Niveau d'étude : Master 2 Informatique à la faculté de sciences d'Angers</p>
+
+            <div>
+                <p class="contactNom">TOURE Boubacar : </p>
+                <ul>
+                    <li>LinkedIn : <label class="contact">https://www.linkedin.com/in/boubacar-toure-universite-angers/</label> </li>
+                    <li>Email : <label class="contact">boubacartoure123@gmail.com</label> </li>
+                </ul>
+            </div>
+            <div>
+                <p class="contactNom">SYLLA Mohamed : </p>
+                <ul>
+                    <li>LinkedIn : <label class="contact">https://www.linkedin.com/xxx/</label> </li>
+                    <li>Email : <label class="contact">xxx@gmail.com"</label> </li>
+                </ul>
+            </div>
+            <div>
+                <p class="contactNom">BARRO Juliette : </p>
+                <ul>
+                    <li>LinkedIn : <label class="contact">https://www.linkedin.com/xxx/</label> </li>
+                    <li>Email : <label class="contact">xxx@gmail.com"</label> </li>
+                </ul>
+            </div>
         </div>
     </div>
     <!-- LE FOOTER -->
