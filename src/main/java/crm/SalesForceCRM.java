@@ -92,6 +92,7 @@ public class SalesForceCRM implements Proxy {
     }
 
     public JSONArray getSaleforceResponses(String sqlRequest) throws URISyntaxException, IOException, InterruptedException {
+        JSONArray records = new JSONArray();
         //requete get pour la réupération des informations
         HttpRequest getReq = (HttpRequest) HttpRequest.newBuilder()
                 .uri(new URI(URI + sqlRequest))
@@ -102,8 +103,10 @@ public class SalesForceCRM implements Proxy {
         HttpResponse<String> getResponses = client.send(getReq, HttpResponse.BodyHandlers.ofString());
 
         System.out.println("Body from Salesforce : " + getResponses.body());
-        JSONObject results = new JSONObject(getResponses.body());
-        JSONArray records = results.getJSONArray("records");
+        if(getResponses.statusCode()==200) {
+            JSONObject results = new JSONObject(getResponses.body());
+             records = results.getJSONArray("records");
+        }
         return records;
     }
     public static Date toDate(String dateStr) throws ParseException {
