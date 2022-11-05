@@ -1,7 +1,9 @@
 package com.CRMService.CRMService;
 
 import crm.InternalCRM;
+import gen.GetLeadsByDateRequest;
 import gen.GetLeadsRequest;
+import gen.GetleadsByDateResponse;
 import gen.GetleadsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -27,6 +29,14 @@ public class LeadEndPoint {
     public GetleadsResponse getLeads(@RequestPayload GetLeadsRequest request){
         GetleadsResponse response = new GetleadsResponse();
         response.setLead(this.internalCRM.getLeadsInFakeData(request.getLowAnnualRevenue(),request.getHighAnnualRevenue(),request.getState()));
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI,localPart = "getLeadsByDateRequest")
+    @ResponsePayload
+    public GetleadsByDateResponse getleadsByDateResponse(@RequestPayload GetLeadsByDateRequest request){
+        GetleadsByDateResponse response = new GetleadsByDateResponse();
+        response.setLead(this.internalCRM.getLeadsByDateInFakeData(request.getStartDate().toGregorianCalendar(), request.getEndDate().toGregorianCalendar()));
         return response;
     }
 }

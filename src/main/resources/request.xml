@@ -7,5 +7,13 @@
             <gs:highAnnualRevenue>100000000</gs:highAnnualRevenue>
             <gs:State>blabla</gs:State>
         </gs:getLeadsRequest>
+        <gs:getLeadsByDateRequest>
+            <gs:startDate>1978-12-12+01:00</gs:startDate>
+            <gs:endDate>1945-03-12+01:00</gs:endDate>
+        </gs:getLeadsByDateRequest>
     </soapenv:Body>
 </soapenv:Envelope>
+
+
+
+

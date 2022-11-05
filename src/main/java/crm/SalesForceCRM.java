@@ -64,24 +64,6 @@ public class SalesForceCRM implements Proxy {
         System.out.println("SQL Request : " + sqlRequest);
         leads = recupLeads(getSaleforceResponses(sqlRequest));
 
-       /* for(Object record : records) {
-            LeadTo lead = new LeadTo();
-            lead.setFirstName(((JSONObject) record).getString("FirstName"));
-            lead.setLastName(((JSONObject) record).getString("LastName"));
-            lead.setAnnualRevenue(((JSONObject) record).getDouble("AnnualRevenue"));
-            lead.setPhone(((JSONObject) record).getString("Phone"));
-            lead.setStreet(((JSONObject) record).getString("Street"));
-            lead.setPostalCode(((JSONObject) record).getString("PostalCode"));
-            lead.setCity(((JSONObject) record).getString("City"));
-            lead.setCountry(((JSONObject) record).getString("Country"));
-            lead.getGeoGraphicPointTo();
-            String dateTimeZone = ((JSONObject) record).getString("CreatedDate");
-            dateTimeZone=dateTimeZone.substring(0,dateTimeZone.indexOf("T"));
-            Date date = toDate(dateTimeZone);
-            lead.setCreationDate(date);
-            leads.add(VirtualCRMMappers.mapLeadToFromLead(lead));
-
-        }*/
 
         return leads;
     }

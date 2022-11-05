@@ -72,5 +72,8 @@ public class GetleadsByDateResponse {
         }
         return this.lead;
     }
+    public void setLead(List<Lead> lead) {
+        this.lead = lead;
+    }
 
 }

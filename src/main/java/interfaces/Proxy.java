@@ -1,6 +1,7 @@
 package interfaces;
 
 import gen.Lead;
+import org.jdom2.JDOMException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
@@ -11,5 +12,5 @@ import java.util.List;
 
 public interface Proxy {
     public List<Lead> getLeads(double lowAnnualRevenue, double highANnualRevenue, String state) throws Exception;
-    public List<Lead> getLeadsByDate(Calendar StartDate, Calendar endDate) throws IOException, InterruptedException, URISyntaxException, DatatypeConfigurationException, ParseException;
+    public List<Lead> getLeadsByDate(Calendar StartDate, Calendar endDate) throws IOException, InterruptedException, URISyntaxException, DatatypeConfigurationException, ParseException, JDOMException;
 }
