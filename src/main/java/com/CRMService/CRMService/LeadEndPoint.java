@@ -9,6 +9,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
 
 @Endpoint
@@ -17,7 +18,7 @@ public class LeadEndPoint {
     public InternalCRM internalCRM;
 
     @Autowired
-    public LeadEndPoint() throws IOException {
+    public LeadEndPoint() throws IOException, DatatypeConfigurationException {
         this.internalCRM = InternalCRM.getInternalCRM();
     }
 

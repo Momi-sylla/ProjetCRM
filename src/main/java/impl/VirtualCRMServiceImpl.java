@@ -7,6 +7,7 @@ import interfaces.Proxy;
 import gen.Lead;
 import interfaces.VirtualCRMService;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -19,14 +20,14 @@ public class VirtualCRMServiceImpl implements VirtualCRMService {
     private static VirtualCRMServiceImpl instance = null;
     private List<Proxy> proxyList;
 
-    private VirtualCRMServiceImpl() throws IOException, URISyntaxException, InterruptedException {
+    private VirtualCRMServiceImpl() throws IOException, URISyntaxException, InterruptedException, DatatypeConfigurationException {
         this.proxyFactoryList = new Hashtable<String, ProxyFactory>();
         this.proxyList = new ArrayList<>();
         this.addProxy(this.createProxy("InternalCRM"));
         this.addProxy(this.createProxy("SalesForceCRM"));
     }
 
-    public Proxy createProxy(String proxyName) throws IOException, URISyntaxException, InterruptedException {
+    public Proxy createProxy(String proxyName) throws IOException, URISyntaxException, InterruptedException, DatatypeConfigurationException {
         switch (proxyName) {
             case "SalesForceCRM":
                 this.proxyFactoryList.put(proxyName, new SalesForceCRMFactory());
@@ -40,7 +41,7 @@ public class VirtualCRMServiceImpl implements VirtualCRMService {
         return this.proxyFactoryList.get(proxyName).createProxy();
     }
 
-    public static VirtualCRMServiceImpl getVirtualCRMServiceImpl() throws IOException, URISyntaxException, InterruptedException {
+    public static VirtualCRMServiceImpl getVirtualCRMServiceImpl() throws IOException, URISyntaxException, InterruptedException, DatatypeConfigurationException {
         if (VirtualCRMServiceImpl.instance == null) {
             VirtualCRMServiceImpl.instance = new VirtualCRMServiceImpl();
         }

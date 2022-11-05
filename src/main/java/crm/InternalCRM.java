@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Component;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,12 +29,12 @@ public class InternalCRM implements Proxy {
     private String apiRequest;
     private static InternalCRM instance = null;
 
-    private InternalCRM() throws IOException {
+    private InternalCRM() throws IOException, DatatypeConfigurationException {
         this.fakeDataOfLeads = (ArrayList<Lead>) Fakedata.getFakeData().generateData();
         this.apiRequest = "http://localhost:8080/ws/leads";
     }
 
-    public static InternalCRM getInternalCRM() throws IOException {
+    public static InternalCRM getInternalCRM() throws IOException, DatatypeConfigurationException {
         if (InternalCRM.instance == null) {
             InternalCRM.instance = new InternalCRM();
         }
@@ -99,7 +100,6 @@ public class InternalCRM implements Proxy {
         Element e = body.get(0);
 
         List<Element> leadsElement= e.getChildren();
-        System.out.println(leadsElement);
        for(int i=0;i<leadsElement.size();i++){
            List<Element> el = leadsElement.get(i).getChildren();
            Iterator elIterator = el.iterator();
