@@ -63,7 +63,6 @@ public class SalesForceCRM implements Proxy {
 
         //requête SOQL pour saleforce
         String sqlRequest = "q=SELECT+FirstName,LastName,phone,street,postalcode,city,CreatedDate,country,AnnualRevenue+FROM+Lead+where+AnnualRevenue+"+sup+"+"+low+"+and+"+"AnnualRevenue+"+inf+"+"+high;
-        System.out.println("SQL Request : " + sqlRequest);
         leads = recupLeads(getSaleforceResponses(sqlRequest));
 
 
@@ -88,7 +87,6 @@ public class SalesForceCRM implements Proxy {
             Date date = VirtualCRMMappers.toDate(dateTimeZone);
             lead.setCreationDate(date);
             leads.add(VirtualCRMMappers.mapLeadToFromLead(lead));
-
         }
         return leads;
     }
@@ -104,10 +102,9 @@ public class SalesForceCRM implements Proxy {
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> getResponses = client.send(getReq, HttpResponse.BodyHandlers.ofString());
 
-        System.out.println("Body from Salesforce : " + getResponses.body());
-        if(getResponses.statusCode()==200) {
+        if(getResponses.statusCode() == 200) {
             JSONObject results = new JSONObject(getResponses.body());
-             records = results.getJSONArray("records");
+            records = results.getJSONArray("records");
         }
         return records;
     }
@@ -118,10 +115,11 @@ public class SalesForceCRM implements Proxy {
         //encodage des caractères speciaux
         String sup = URLEncoder.encode(">","UTF-8");
         String inf = URLEncoder.encode("<","UTF-8");
-        String startDateStr =StartDate.toString();
-        String endDateStr =endDate.toString();
+        String startDateStr = StartDate.toString();
+        String endDateStr = endDate.toString();
+        System.out.println("Date Start : " + startDateStr + ", Date End : " + endDateStr);
         String sqlRequest = "q=SELECT+FirstName,LastName,phone,street,postalcode,city,CreatedDate,country,AnnualRevenue+FROM+Lead+where+CreatedDate+"+sup+"+"+startDateStr+"+and+"+"AnnualRevenue+"+inf+"+"+endDateStr;
-        leads=recupLeads(getSaleforceResponses(sqlRequest));
+        leads = recupLeads(getSaleforceResponses(sqlRequest));
         return leads;
     }
 

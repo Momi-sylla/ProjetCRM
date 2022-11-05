@@ -81,62 +81,16 @@ public class InternalCRM implements Proxy {
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> responses = client.send(postReq, HttpResponse.BodyHandlers.ofString());
 
-
-      /*  InputStream stream = new ByteArrayInputStream(responses.body().getBytes("UTF-8"));
-        SAXBuilder saxBuilder = new SAXBuilder();
-        Document document = saxBuilder.build(stream);
-        Element rootElement = document.getRootElement();
-
-        List<Element> envs = rootElement.getChildren();
-        List<Element> body = envs.get(1).getChildren();
-        Element e = body.get(0);
-
-        List<Element> leadsElement= e.getChildren();
-       for(int i=0;i<leadsElement.size();i++){
-           List<Element> el = leadsElement.get(i).getChildren();
-           Iterator elIterator = el.iterator();
-           LeadTo leadTo = new LeadTo();
-           while (elIterator.hasNext()){
-               Element  lead = (Element) elIterator.next();
-            //   System.out.println(lead.getName());
-               if(lead.getName().equals("firstName")){
-                   leadTo.setFirstName(lead.getText());
-               }
-               if(lead.getName().equals("lastName")){
-                   leadTo.setLastName(lead.getText());
-               }
-               if(lead.getName().equals("annualRevenue")){
-                   leadTo.setAnnualRevenue(Double. valueOf(lead.getText()));
-               }
-               if(lead.getName().equals("phone")){
-                   leadTo.setPhone(lead.getText());
-               }
-               if(lead.getName().equals("street")){
-                   leadTo.setStreet(lead.getText());
-               }
-               if(lead.getName().equals("postalCode")){
-                   leadTo.setPostalCode(lead.getText());
-               }
-               if(lead.getName().equals("city")){
-                   leadTo.setCity(lead.getText());
-               }
-               if(lead.getName().equals("country")){
-                   leadTo.setCountry(lead.getText());
-               }
-           }
-           leadTo.getGeoGraphicPointTo();
-           leads.add(VirtualCRMMappers.mapLeadToFromLead(leadTo));
-
-       }
-
-        return leads;*/
-        leads=recupInternalLead(responses);
+        if (responses.statusCode() == 200) {
+            leads = recupInternalLead(responses);
+        }
         return leads;
     }
 
     public  ArrayList<Lead> recupInternalLead( HttpResponse<String> responses ) throws URISyntaxException, IOException, InterruptedException, DatatypeConfigurationException, JDOMException {
         ArrayList<Lead> leads= new ArrayList<>();
         InputStream stream = new ByteArrayInputStream(responses.body().getBytes("UTF-8"));
+
         SAXBuilder saxBuilder = new SAXBuilder();
         Document document = saxBuilder.build(stream);
         Element rootElement = document.getRootElement();
@@ -178,7 +132,6 @@ public class InternalCRM implements Proxy {
                     leadTo.setCountry(lead.getText());
                 }
             }
-            leadTo.getGeoGraphicPointTo();
             leads.add(VirtualCRMMappers.mapLeadToFromLead(leadTo));
 
         }
@@ -210,7 +163,10 @@ public class InternalCRM implements Proxy {
 
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> responses = client.send(postReq, HttpResponse.BodyHandlers.ofString());
-        leads=recupInternalLead(responses);
+
+        if (responses.statusCode() == 200) {
+            leads = recupInternalLead(responses);
+        }
         return leads;
 
     }

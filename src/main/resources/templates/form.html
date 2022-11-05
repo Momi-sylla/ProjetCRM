@@ -64,9 +64,9 @@
     </div>
 
     <!-- LE CONTENU DE CHAQUE PAGE -->
-    <div id="page-accueil" class="card pt-5">
-        <div id="contenu" class="container mt-3 mb-3">
-            <h5 class="card-title text-center mb-5 fw-light fs-5">Form</h5>
+    <div id="page-accueil" class="row pt-5">
+        <div class="formDiv col mt-3 mb-3">
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Form for leads</h5>
 
             <form th:action="@{/leadsByForm}" method="post" th:object="${leadInfo}">
                 <div class="form-floating mb-3">
@@ -85,6 +85,24 @@
                 </div>
 
                 <input type="submit" value="Send" />
+            </form>
+        </div>
+
+        <div class="formDiv col mt-3 mb-3">
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Form for leads by date</h5>
+
+            <form th:action="@{/leadsByFormWithDate}" method="post" th:object="${leadInfo}">
+                <div class="form-floating mb-3">
+                    <label for="dateStart">Date Start</label>
+                    <input type="date" id="dateStart" class="form-control" th:field="*{dateStart}" />
+                </div>
+
+                <div class="form-floating mb-3">
+                    <label for="dateEnd">Date End</label>
+                    <input type="date" id="dateEnd" class="form-control" th:field="*{dateEnd}" />
+                </div>
+
+                <input type="submit" value="Send by date" />
             </form>
         </div>
     </div>

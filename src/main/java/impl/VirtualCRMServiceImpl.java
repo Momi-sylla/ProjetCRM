@@ -6,10 +6,12 @@ import factory.SalesForceCRMFactory;
 import interfaces.Proxy;
 import gen.Lead;
 import interfaces.VirtualCRMService;
+import org.jdom2.JDOMException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Hashtable;
@@ -63,8 +65,17 @@ public class VirtualCRMServiceImpl implements VirtualCRMService {
     }
 
     @Override
-    public List<Lead> findLeadsByDate(Calendar StartDate, Calendar endDate) {
-        return null;
+    public List<Lead> findLeadsByDate(Calendar StartDate, Calendar endDate) throws DatatypeConfigurationException, IOException, URISyntaxException, ParseException, JDOMException, InterruptedException {
+        ArrayList<Lead> myLeads = new ArrayList<>();
+
+        // POUR RECUPERER LES LEADS BY DATE DANS TOUS LES CRM EN MEME TEMPS
+        for (Proxy proxy: this.proxyList) {
+            for(Lead lead : proxy.getLeadsByDate(StartDate, endDate)) {
+                myLeads.add(lead);
+            }
+        }
+
+        return myLeads;
     }
 
     public void addProxy (Proxy proxy) {

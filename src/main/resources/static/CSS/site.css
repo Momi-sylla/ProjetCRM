@@ -41,7 +41,7 @@ padding: auto 225px;
 background-color: #55fa15;
 }
 
-.userName {
+.userName, .card-title {
 font-size: 25px;
 font-family: fantasy;
 font-weight: bold;
@@ -58,4 +58,13 @@ font-weight: bold;
 .row {
 overflow-y: auto;
 height: 550px;
+}
+
+.formDiv {
+    margin: 4px;
+    padding: 1em;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.5);
 }
