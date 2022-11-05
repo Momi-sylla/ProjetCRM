@@ -24,6 +24,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static mappers.VirtualCRMMappers.toDate;
+
 public class SalesForceCRM implements Proxy {
     private final String CLIENT_ID = "3MVG9t0sl2P.pByp0SnSA6Bzh2XDVY0n37pe_gz.hrStcxxQSVIBhVP20m71vfl92KK7.whRIvdhvbrVbIw.v";
     private final String CLIENT_SECRET = "89DAE17221F8CDA71D4BFD665060A1033A902B603B9615A823ED18D7DD4A0A1E";
@@ -83,7 +85,7 @@ public class SalesForceCRM implements Proxy {
             lead.getGeoGraphicPointTo();
             String dateTimeZone = ((JSONObject) record).getString("CreatedDate");
             dateTimeZone=dateTimeZone.substring(0,dateTimeZone.indexOf("T"));
-            Date date = toDate(dateTimeZone);
+            Date date = VirtualCRMMappers.toDate(dateTimeZone);
             lead.setCreationDate(date);
             leads.add(VirtualCRMMappers.mapLeadToFromLead(lead));
 
@@ -109,13 +111,7 @@ public class SalesForceCRM implements Proxy {
         }
         return records;
     }
-    public static Date toDate(String dateStr) throws ParseException {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
-        LocalDate dateTime = LocalDate.parse(dateStr, formatter);
-        Date date = Date.from(dateTime.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            return date;
-    }
     @Override
     public List<Lead> getLeadsByDate(Calendar StartDate, Calendar endDate) throws IOException, InterruptedException, URISyntaxException, DatatypeConfigurationException, ParseException {
         ArrayList<Lead> leads= new ArrayList<>();
