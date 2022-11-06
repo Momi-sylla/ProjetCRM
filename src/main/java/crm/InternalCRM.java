@@ -29,12 +29,12 @@ public class InternalCRM implements Proxy {
     private String apiRequest;
     private static InternalCRM instance = null;
 
-    private InternalCRM() throws IOException, DatatypeConfigurationException {
+    private InternalCRM() throws IOException, DatatypeConfigurationException, ParseException {
         this.fakeDataOfLeads = (ArrayList<Lead>) Fakedata.getFakeData().generateData();
         this.apiRequest = "http://localhost:8080/ws/leads";
     }
 
-    public static InternalCRM getInternalCRM() throws IOException, DatatypeConfigurationException {
+    public static InternalCRM getInternalCRM() throws IOException, DatatypeConfigurationException, ParseException {
         if (InternalCRM.instance == null) {
             InternalCRM.instance = new InternalCRM();
         }

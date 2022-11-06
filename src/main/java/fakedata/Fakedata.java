@@ -10,7 +10,11 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Fakedata {
     private List<Lead> leadsData;
@@ -30,20 +34,25 @@ public class Fakedata {
     }
 
 
-    public XMLGregorianCalendar generateRandomDate() throws DatatypeConfigurationException {
+    public XMLGregorianCalendar generateRandomDate() throws DatatypeConfigurationException, ParseException {
         Random random = new Random();
-        long milliseconds = -946771200000L + (Math.abs(random.nextLong()) % (70L * 365 * 24 * 60 * 60 * 1000));
-        return  VirtualCRMMappers.mapDateToXMLGregorianCalendar(new Date(milliseconds));
+        String begin = "1995-01-01";
+        String end = "2022-01-01";
+       Date d1 = VirtualCRMMappers.mapStringToDate(begin);
+        Date d2 = VirtualCRMMappers.mapStringToDate(end);
+        long longdate = d1.getTime() + Math.round(Math.random() * (d2.getTime() - d1.getTime()));
+        Date randomDate = new Date(longdate);
+        return  VirtualCRMMappers.mapDateToXMLGregorianCalendar(randomDate);
     }
 
-    public void setDatasDate() throws DatatypeConfigurationException {
+    public void setDatasDate() throws DatatypeConfigurationException, ParseException {
         Iterator iterator = leadsData.listIterator();
         while(iterator.hasNext()){
             Lead l = (Lead) iterator.next();
             l.setCreationDate(generateRandomDate());
         }
     }
-    public List<Lead>generateData() throws IOException, DatatypeConfigurationException {
+    public List<Lead>generateData() throws IOException, DatatypeConfigurationException, ParseException {
         setDatasDate();
         return leadsData;
     }

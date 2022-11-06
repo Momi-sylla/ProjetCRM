@@ -13,6 +13,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
+import java.text.ParseException;
 
 @Endpoint
 public class LeadEndPoint {
@@ -20,7 +21,7 @@ public class LeadEndPoint {
     public InternalCRM internalCRM;
 
     @Autowired
-    public LeadEndPoint() throws IOException, DatatypeConfigurationException {
+    public LeadEndPoint() throws IOException, DatatypeConfigurationException, ParseException {
         this.internalCRM = InternalCRM.getInternalCRM();
     }
 

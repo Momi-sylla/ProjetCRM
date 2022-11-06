@@ -22,14 +22,14 @@ public class VirtualCRMServiceImpl implements VirtualCRMService {
     private static VirtualCRMServiceImpl instance = null;
     private List<Proxy> proxyList;
 
-    private VirtualCRMServiceImpl() throws IOException, URISyntaxException, InterruptedException, DatatypeConfigurationException {
+    private VirtualCRMServiceImpl() throws IOException, URISyntaxException, InterruptedException, DatatypeConfigurationException, ParseException {
         this.proxyFactoryList = new Hashtable<String, ProxyFactory>();
         this.proxyList = new ArrayList<>();
         this.addProxy(this.createProxy("InternalCRM"));
         this.addProxy(this.createProxy("SalesForceCRM"));
     }
 
-    public Proxy createProxy(String proxyName) throws IOException, URISyntaxException, InterruptedException, DatatypeConfigurationException {
+    public Proxy createProxy(String proxyName) throws IOException, URISyntaxException, InterruptedException, DatatypeConfigurationException, ParseException {
         switch (proxyName) {
             case "SalesForceCRM":
                 this.proxyFactoryList.put(proxyName, new SalesForceCRMFactory());
@@ -43,7 +43,7 @@ public class VirtualCRMServiceImpl implements VirtualCRMService {
         return this.proxyFactoryList.get(proxyName).createProxy();
     }
 
-    public static VirtualCRMServiceImpl getVirtualCRMServiceImpl() throws IOException, URISyntaxException, InterruptedException, DatatypeConfigurationException {
+    public static VirtualCRMServiceImpl getVirtualCRMServiceImpl() throws IOException, URISyntaxException, InterruptedException, DatatypeConfigurationException, ParseException {
         if (VirtualCRMServiceImpl.instance == null) {
             VirtualCRMServiceImpl.instance = new VirtualCRMServiceImpl();
         }
