@@ -48,43 +48,43 @@
     <!-- LE CONTENU DE CHAQUE PAGE -->
     <div id="page-accueil" class="row pt-5">
         <div class="formDiv col mt-3 mb-3">
-            <h5 class="card-title text-center mb-5 fw-light fs-5">Form for leads</h5>
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Find Leads</h5>
 
             <form th:action="@{/leadsByForm}" method="post" th:object="${leadInfo}">
                 <div class="form-floating mb-3">
-                    <label for="salaireMinimum">Salaire Minimum</label>
+                    <label for="salaireMinimum">Minimum Salary</label>
                     <input type="number" id="salaireMinimum" class="form-control" th:field="*{salaireMinimum}" max="1000000000" size="10" step="5000" />
                 </div>
 
                 <div class="form-floating mb-3">
-                    <label for="salaireMaximum">Salaire Maximum</label>
+                    <label for="salaireMaximum">Maximum Salary</label>
                     <input type="number" id="salaireMaximum" class="form-control" th:field="*{salaireMaximum}" max="1000000000" size="10" step="10000" />
                 </div>
 
                 <div class="form-floating mb-3">
-                    <label for="etat">Etat</label>
+                    <label for="etat">State</label>
                     <input type="text" id="etat" class="form-control" th:field="*{etat}" placeholder="null"/>
                 </div>
 
-                <input type="submit" value="Send" />
+                <input type="submit" value="Send" class="btn btn-primary"/>
             </form>
         </div>
 
         <div class="formDiv col mt-3 mb-3">
-            <h5 class="card-title text-center mb-5 fw-light fs-5">Form for leads by date</h5>
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Find Leads By Date</h5>
 
             <form th:action="@{/leadsByFormWithDate}" method="post" th:object="${leadInfo}">
                 <div class="form-floating mb-3">
-                    <label for="dateStart">Date Start</label>
+                    <label for="dateStart">Start Date</label>
                     <input type="date" id="dateStart" class="form-control" th:field="*{dateStart}" />
                 </div>
 
                 <div class="form-floating mb-3">
-                    <label for="dateEnd">Date End</label>
+                    <label for="dateEnd">End Date</label>
                     <input type="date" id="dateEnd" class="form-control" th:field="*{dateEnd}" />
                 </div>
 
-                <input type="submit" value="Send by date" />
+                <input type="submit" value="Send"  class="btn btn-primary"/>
             </form>
         </div>
     </div>
