@@ -21,7 +21,6 @@ public class CRMServiceController {
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String getMyForm(Model model) throws Exception {
         model.addAttribute("leadInfo", new LeadInfo());
-        System.out.println("Form");
         return "form";
     }
 
@@ -45,7 +44,6 @@ public class CRMServiceController {
         Calendar dateStart = VirtualCRMMappers.mapDateToXMLGregorianCalendar(VirtualCRMMappers.mapStringToDate(leadInfo.getDateStart())).toGregorianCalendar();
         Calendar dateEnd = VirtualCRMMappers.mapDateToXMLGregorianCalendar(VirtualCRMMappers.mapStringToDate(leadInfo.getDateEnd())).toGregorianCalendar();
         leadsByDate = virtualCRMService.findLeadsByDate(dateStart, dateEnd);
-        System.out.println("Lead Form With Date");
         return "redirect:/leadsByDate";
     }
 
@@ -53,7 +51,6 @@ public class CRMServiceController {
     public List<Lead> getMyLeadsByDate(Model model) throws Exception {
         model.addAttribute("nbCustomers", leadsByDate.size());
         model.addAttribute("customers", leadsByDate);
-        System.out.println("LeadPage With Date");
         return leadsByDate;
     }
 
