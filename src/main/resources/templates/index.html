@@ -14,28 +14,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body id="page-top" style="background-color: #5D6D7E;">
-    <!-- LA BARRE DE NAVIAGATION -->
-    <nav class="navbar navbar-expand-md navbar-light py-4 bg-dark">
-        <a class="navbar-brand text-white" href="http://localhost:8080/">Site Mashup : <span class="userName">SYLLA - TOURE - BARRO</span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active mr-2">
-                    <button class="nav-link" onclick="window.location.href = 'http://localhost:8080/form';">Form</button>
-                </li>
-                <li class="nav-item active mr-2">
-                    <button class="nav-link" onclick="window.location.href = 'http://localhost:8080/lead';">Show Leads</button>
-                </li>
-                <li class="nav-item active mr-2">
-                    <button class="nav-link" onclick="window.location.href = 'http://localhost:8080/leadsByDate';">Show Leads By Date</button>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<!-- LA BARRE DE NAVIAGATION -->
+    <div th:replace="fragments/Navbar :: nav"></div>
 
-    <!-- LE CONTENU DE CHAQUE PAGE -->
+<!-- LE CONTENU DE CHAQUE PAGE -->
     <div id="page-accueil" class="card pt-5">
         <div id="contenu" class="container mt-3 mb-3">
             <h1>Bienvenue sur notre page de gestation des CRM</h1>
