@@ -16,15 +16,8 @@ import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-
-import static mappers.VirtualCRMMappers.toDate;
 
 public class SalesForceCRM implements Proxy {
     private final String CLIENT_ID = "3MVG9t0sl2P.pByp0SnSA6Bzh2XDVY0n37pe_gz.hrStcxxQSVIBhVP20m71vfl92KK7.whRIvdhvbrVbIw.v";
@@ -84,7 +77,7 @@ public class SalesForceCRM implements Proxy {
             lead.getGeoGraphicPointTo();
             String dateTimeZone = ((JSONObject) record).getString("CreatedDate");
             dateTimeZone=dateTimeZone.substring(0,dateTimeZone.indexOf("T"));
-            Date date = VirtualCRMMappers.toDate(dateTimeZone);
+            Date date = VirtualCRMMappers.mapStringToDate(dateTimeZone);
             lead.setCreationDate(date);
             leads.add(VirtualCRMMappers.mapLeadToFromLead(lead));
         }
@@ -115,9 +108,8 @@ public class SalesForceCRM implements Proxy {
         //encodage des caractères speciaux
         String sup = URLEncoder.encode(">","UTF-8");
         String inf = URLEncoder.encode("<","UTF-8");
-        String startDateStr = StartDate.toString();
-        String endDateStr = endDate.toString();
-        System.out.println("Date Start : " + startDateStr + ", Date End : " + endDateStr);
+        String startDateStr = VirtualCRMMappers.mapCalendarToDateString(StartDate);
+        String endDateStr = VirtualCRMMappers.mapCalendarToDateString(endDate);
         String sqlRequest = "q=SELECT+FirstName,LastName,phone,street,postalcode,city,CreatedDate,country,AnnualRevenue+FROM+Lead+where+CreatedDate+"+sup+"+"+startDateStr+"+and+"+"AnnualRevenue+"+inf+"+"+endDateStr;
         leads = recupLeads(getSaleforceResponses(sqlRequest));
         return leads;

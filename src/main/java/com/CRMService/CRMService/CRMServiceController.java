@@ -16,6 +16,7 @@ import java.util.List;
 @Controller
 public class CRMServiceController {
     private List<Lead> leads = new ArrayList<>();
+    private List<Lead> leadsByDate = new ArrayList<>();
 
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String getMyForm(Model model) throws Exception {
@@ -41,21 +42,19 @@ public class CRMServiceController {
     @RequestMapping(value = "/leadsByFormWithDate", method = RequestMethod.POST)
     public String postMyLeadsByFormWithDate(@ModelAttribute LeadInfo leadInfo) throws Exception {
         VirtualCRMServiceImpl virtualCRMService = VirtualCRMServiceImpl.getVirtualCRMServiceImpl();
-        Calendar dateStart = VirtualCRMMappers.mapDateToXMLGregorianCalendar(VirtualCRMMappers.toDate(leadInfo.getDateStart())).toGregorianCalendar();
-        Calendar dateEnd = VirtualCRMMappers.mapDateToXMLGregorianCalendar(VirtualCRMMappers.toDate(leadInfo.getDateEnd())).toGregorianCalendar();
-
+        Calendar dateStart = VirtualCRMMappers.mapDateToXMLGregorianCalendar(VirtualCRMMappers.mapStringToDate(leadInfo.getDateStart())).toGregorianCalendar();
+        Calendar dateEnd = VirtualCRMMappers.mapDateToXMLGregorianCalendar(VirtualCRMMappers.mapStringToDate(leadInfo.getDateEnd())).toGregorianCalendar();
+        leadsByDate = virtualCRMService.findLeadsByDate(dateStart, dateEnd);
         System.out.println("Lead Form With Date");
-        leads = virtualCRMService.findLeadsByDate(dateStart, dateEnd);
         return "redirect:/leadsByDate";
     }
 
-    @GetMapping("/leadByDate")
-    public String getMyLeadsByDate(Model model) throws Exception {
-        VirtualCRMServiceImpl virtualCRMService = VirtualCRMServiceImpl.getVirtualCRMServiceImpl();
-        model.addAttribute("nbCustomers", leads.size());
-        model.addAttribute("customers", leads);
+    @GetMapping("/leadsByDate")
+    public List<Lead> getMyLeadsByDate(Model model) throws Exception {
+        model.addAttribute("nbCustomers", leadsByDate.size());
+        model.addAttribute("customers", leadsByDate);
         System.out.println("LeadPage With Date");
-        return "leadsByDate";
+        return leadsByDate;
     }
 
 }

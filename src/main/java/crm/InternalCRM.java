@@ -9,9 +9,6 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.XML;
 import org.springframework.stereotype.Component;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -23,8 +20,8 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.ParseException;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @Component
 public class InternalCRM implements Proxy {
@@ -87,7 +84,7 @@ public class InternalCRM implements Proxy {
         return leads;
     }
 
-    public  ArrayList<Lead> recupInternalLead( HttpResponse<String> responses ) throws URISyntaxException, IOException, InterruptedException, DatatypeConfigurationException, JDOMException {
+    public  ArrayList<Lead> recupInternalLead( HttpResponse<String> responses ) throws URISyntaxException, IOException, InterruptedException, DatatypeConfigurationException, JDOMException, ParseException {
         ArrayList<Lead> leads= new ArrayList<>();
         InputStream stream = new ByteArrayInputStream(responses.body().getBytes("UTF-8"));
 
@@ -106,7 +103,6 @@ public class InternalCRM implements Proxy {
             LeadTo leadTo = new LeadTo();
             while (elIterator.hasNext()){
                 Element  lead = (Element) elIterator.next();
-                //   System.out.println(lead.getName());
                 if(lead.getName().equals("firstName")){
                     leadTo.setFirstName(lead.getText());
                 }
@@ -131,6 +127,15 @@ public class InternalCRM implements Proxy {
                 if(lead.getName().equals("country")){
                     leadTo.setCountry(lead.getText());
                 }
+                if(lead.getName().equals("state")){
+                    leadTo.setState(lead.getText());
+                }
+                if(lead.getName().equals("company")){
+                    leadTo.setCompany(lead.getText());
+                }
+                if(lead.getName().equals("creationDate")){
+                    leadTo.setCreationDate(VirtualCRMMappers.mapStringToDate(lead.getText()));
+                }
             }
             leads.add(VirtualCRMMappers.mapLeadToFromLead(leadTo));
 
@@ -139,17 +144,19 @@ public class InternalCRM implements Proxy {
     }
 
     @Override
-    public List<Lead> getLeadsByDate(Calendar StartDate, Calendar endDate) throws IOException, InterruptedException, URISyntaxException, DatatypeConfigurationException, JDOMException {
+    public List<Lead> getLeadsByDate(Calendar StartDate, Calendar endDate) throws IOException, InterruptedException, URISyntaxException, DatatypeConfigurationException, JDOMException, ParseException {
 
         ArrayList<Lead> leads= new ArrayList<>();
+        String startDateStr = VirtualCRMMappers.mapCalendarToDateString(StartDate);
+        String endDateStr = VirtualCRMMappers.mapCalendarToDateString(endDate);
         String bodyOfSOAPData =
                 "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/'\n" +
                         "                  xmlns:gs='http://www.internalLead.com/springsoap/gen'>\n" +
                         "    <soapenv:Header/>\n" +
                         "    <soapenv:Body>\n" +
                         "        <gs:getLeadsByDateRequest>\n" +
-                        "            <gs:startDate>"+StartDate+"</gs:startDate>\n" +
-                        "            <gs:endDate>"+endDate+"</gs:endDate>\n" +
+                        "            <gs:startDate>"+startDateStr+"</gs:startDate>\n" +
+                        "            <gs:endDate>"+endDateStr+"</gs:endDate>\n" +
                         "        </gs:getLeadsByDateRequest>\n" +
                         "    </soapenv:Body>\n" +
                         "</soapenv:Envelope>\n";

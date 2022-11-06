@@ -10,10 +10,13 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -84,11 +87,20 @@ public class VirtualCRMMappers {
         }
         return null;
     }
-    public static Date toDate(String dateStr) throws ParseException {
-
+    public static Date mapStringToDate(String dateStr) throws ParseException {
+        int index = dateStr.indexOf("+");
+        if(index != -1) {
+            dateStr = dateStr.substring(0, index);
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
         LocalDate dateTime = LocalDate.parse(dateStr, formatter);
         Date date = Date.from(dateTime.atStartOfDay(ZoneId.systemDefault()).toInstant());
         return date;
+    }
+
+    public static String mapCalendarToDateString(Calendar calendar){
+        Date date = calendar.getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(date);
     }
 }
