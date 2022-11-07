@@ -32,10 +32,10 @@ public class CRMServiceController {
     }
 
     @RequestMapping(value = "/lead", method = RequestMethod.GET)
-    public List<Lead> getMyLeads(Model model) throws Exception {
+    public String getMyLeads(Model model) throws Exception {
         model.addAttribute("customers", leads);
         model.addAttribute("nbCustomers", leads.size());
-        return leads;
+        return "lead";
     }
 
     @RequestMapping(value = "/leadsByFormWithDate", method = RequestMethod.POST)
@@ -48,10 +48,10 @@ public class CRMServiceController {
     }
 
     @GetMapping("/leadsByDate")
-    public List<Lead> getMyLeadsByDate(Model model) throws Exception {
+    public String getMyLeadsByDate(Model model) throws Exception {
         model.addAttribute("nbCustomers", leadsByDate.size());
         model.addAttribute("customers", leadsByDate);
-        return leadsByDate;
+        return "leadsByDate";
     }
 
 }
