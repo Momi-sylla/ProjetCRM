@@ -4,47 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Projet Site Mashup CRM</title>
-    <!-- Bootstrap core CSS -->
     <link href="../CSS/site.css" rel="stylesheet">
+    <link href="../CSS/infoCustomers.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Custom styles for Bootstrap template -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body id="page-top">
-<!-- LA BARRE DE NAVIAGATION -->
+    <!-- LA BARRE DE NAVIAGATION -->
     <div th:replace="fragments/Navbar :: nav"></div>
 
-<!-- LES CAROUSELS POUR DEFILER LES IMAGES -->
-<div th:replace="fragments/caroussel :: caroussel"></div>
+    <!-- LES CAROUSELS POUR DEFILER LES IMAGES -->
+    <div th:replace="fragments/caroussel :: caroussel"></div>
 
-<!-- LE CONTENU DE CHAQUE PAGE -->
-<div id="page-accueil" class="card pt-5">
-    <div id="contenu" class="container mt-3 mb-3">
-        <h2 th:text="${'List of ' + nbCustomers + ' customers'}" />
-        <div class="row">
-            <div class="col-lg-4 col-sm-6 mb-4" th:each="customer:${customers}">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top" th:src="@{/Image/icon.png}" alt="icon"></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#" th:text="${customer.firstName + ' ' + customer.lastName}" />
-                        </h4>
-                        <p class="card-text">
-                            <label  th:text="${'Annual Salary : ' + customer.annualRevenue} + ' $'" /> <br />
-                            <label  th:text="${'City : ' + customer.city}" /> <br />
-                            <label  th:text="${'Street : ' + customer.street}" /> <br />
-                        </p>
+    <!-- LE CONTENU DE CHAQUE PAGE -->
+    <div id="page-accueil" class="card pt-5">
+        <div id="contenu" class="container mt-3 mb-3">
+            <h2 th:text="${'List of ' + nbCustomers + ' customers'}" />
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 mb-4" th:each="customer:${customers}">
+                    <div class="infoCustomers card h-100" data-toggle="modal" data-target=".bd-example-modal-lg">
+                        <a href="#"><img class="card-img-top" th:src="@{/Image/icon.png}" alt="icon"></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#" th:text="${customer.firstName + ' ' + customer.lastName}" />
+                            </h4>
+                            <p class="card-text">
+                                <label th:text="${'Annual Salary : ' + customer.annualRevenue + ' $'}" /> <br />
+                                <label th:text="${'City : ' + customer.city}" /> <br />
+                                <label th:text="${'Street : ' + customer.street}" /> <br />
+                                <label th:text="${'Phone : ' + customer.phone}" /> <br />
+                            </p>
+                        </div>
+
+                        <!--          ASTUCE POUR RÉCUPERER LES INFORMATIONS DES LEADS              -->
+                        <div class="infoLeads" style="display: none">
+                            <div id="userNameSending" th:text="${customer.firstName + ' ' + customer.lastName}" />
+                            <div id="annualRevenueSending" th:text="${customer.annualRevenue + ' $'}" />
+                            <div id="streetSending"  th:text="${customer.street}" />
+                            <div id="postalCodeSending" th:text="${customer.postalCode}" />
+                            <div id="citySending" th:text="${customer.city}" />
+                            <div id="countrySending" th:text="${customer.country}" />
+                            <div id="creationDateSending" th:text="${customer.creationDate}" />
+<!--                            <div id="geographicPointSending" th:text="${'(' + customer.geoGraphicPointTo.latitude + ', ' + customer.geoGraphicPointTo.longitude + ')' }" />-->
+                            <div id="geographicPointSending" th:text="${'(latitude, longitude)' }" />
+                            <div id="stateSending" th:text="${customer.state}" />
+                            <div id="phoneSending" th:text="${customer.phone}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION -->
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="container">
+                        <div class="col-lg-12 mb-4 mb-sm-5">
+                            <div class="card card-style1 border-0">
+                                <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-6 mb-4 mb-lg-0">
+                                            <img th:src="@{/Image/icon.png}" alt="...">
+                                        </div>
+                                        <div class="col-lg-6 px-xl-10">
+                                            <div class="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
+                                                <h3 class="h2 text-white mb-0" id="userName">FirstName LastName</h3>
+                                            </div>
+                                            <ul class="list-unstyled mb-1-9">
+                                                <li class="mb-2 mb-xl-3 display-28" ><span class="display-26 text-secondary me-2 font-weight-600">Annual Revenue:</span> <label id="annualRevenue"></label></li>
+                                                <li class="mb-2 mb-xl-3 display-28" ><span class="display-26 text-secondary me-2 font-weight-600">Country:</span> <label id="country"></label></li>
+                                                <li class="mb-2 mb-xl-3 display-28" ><span class="display-26 text-secondary me-2 font-weight-600">City:</span> <label id="city"></label></li>
+                                                <li class="mb-2 mb-xl-3 display-28" ><span class="display-26 text-secondary me-2 font-weight-600">Street:</span> <label id="street"></label></li>
+                                                <li class="mb-2 mb-xl-3 display-28" ><span class="display-26 text-secondary me-2 font-weight-600">Postal Code:</span> <label id="postalCode"></label></li>
+                                                <li class="display-28" ><span class="display-26 text-secondary me-2 font-weight-600">Phone:</span> <label id="phone"></label></li>
+                                                <li class="mb-2 mb-xl-3 display-28" ><span class="display-26 text-secondary me-2 font-weight-600">Geographic Point:</span> <label id="geographicPoint"></label></li>
+                                                <li class="mb-2 mb-xl-3 display-28" ><span class="display-26 text-secondary me-2 font-weight-600">Creation Date:</span> <label id="creationDate"></label></li>
+                                                <li class="mb-2 mb-xl-3 display-28" ><span class="display-26 text-secondary me-2 font-weight-600">Company:</span> <label id="company"></label></li>
+                                                <li class="mb-2 mb-xl-3 display-28" ><span class="display-26 text-secondary me-2 font-weight-600">State:</span> <label id="state"></label></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- LE FOOTER -->
-<div th:replace="fragments/footer :: footer"></div>
+    <!-- LE FOOTER -->
+    <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -18,7 +18,7 @@ public class LeadInfo {
 
     public LeadInfo() {
         this.salaireMinimum = 5000;
-        this.salaireMaximum = 10000;
+        this.salaireMaximum = 1000000;
         this.dateStart = "1995-01-01";
         this.dateEnd = "2022-12-31";
         this.etat = null;

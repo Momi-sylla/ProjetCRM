@@ -4,26 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Projet Site Mashup CRM</title>
-    <!-- Bootstrap core CSS -->
     <link href="../CSS/site.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Custom styles for Bootstrap template -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
-<body id="page-top" style="background-color: #5D6D7E;">
-<!-- LA BARRE DE NAVIAGATION -->
+<body id="page-top">
+    <!-- LA BARRE DE NAVIAGATION -->
     <div th:replace="fragments/Navbar :: nav"></div>
 
-<!-- LE CONTENU DE CHAQUE PAGE -->
+    <!-- LES CAROUSELS POUR DEFILER LES IMAGES -->
+    <div th:replace="fragments/caroussel :: caroussel"></div>
+
+    <!-- LE CONTENU DE CHAQUE PAGE -->
     <div id="page-accueil" class="card pt-5">
         <div id="contenu" class="container mt-3 mb-3">
-            <h1>Bienvenue sur notre page de gestation des CRM</h1>
+            <h1>Welcome to our CRM gestation page</h1>
+            <img class="d-block w-25 h-25" th:src="@{/Image/UA.png}" alt="UA Logo">
             <hr />
-            <h3>Informations sur les auteurs du site</h3>
-            <p style="font-weight: bold;">Niveau d'étude : Master 2 Informatique à la faculté de sciences d'Angers</p>
+            <h3>Information about the authors of the site</h3>
+            <p style="font-weight: bold;">Level of study: Master 2 in Computer Science at the Faculty of Sciences of Angers</p>
 
             <div>
                 <p class="contactNom">TOURE Boubacar : </p>
@@ -48,6 +48,7 @@
             </div>
         </div>
     </div>
+
     <!-- LE FOOTER -->
     <div th:replace="fragments/footer :: footer"></div>
 </body>
