@@ -4,19 +4,16 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gen.Lead;
 import mappers.VirtualCRMMappers;
-import org.jdom2.Element;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Fakedata {
+
     private List<Lead> leadsData;
     private static Fakedata instance = null;
 
@@ -33,11 +30,10 @@ public class Fakedata {
         return Fakedata.instance;
     }
 
-
     public XMLGregorianCalendar generateRandomDate() throws DatatypeConfigurationException, ParseException {
         Random random = new Random();
-        String begin = "2022-11-06";
-        String end = "2022-11-07";
+        String begin = "2022-11-07";
+        String end = "2022-11-08";
        Date d1 = VirtualCRMMappers.mapStringToDate(begin);
         Date d2 = VirtualCRMMappers.mapStringToDate(end);
         long longdate = d1.getTime() + Math.round(Math.random() * (d2.getTime() - d1.getTime()));
@@ -52,6 +48,7 @@ public class Fakedata {
             l.setCreationDate(generateRandomDate());
         }
     }
+
     public List<Lead>generateData() throws IOException, DatatypeConfigurationException, ParseException {
         setDatasDate();
         return leadsData;

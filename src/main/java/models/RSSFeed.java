@@ -8,16 +8,9 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
-import org.w3c.dom.Node;
 
 import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.IOException;;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -51,7 +44,7 @@ public class RSSFeed {
         leads=virtualCRMService.findLeadsByDate(yest,tod);
 
         if(leads.size()>0) {
-        Element clients = new Element("clients");
+            Element clients = new Element("clients");
 
             for (Lead lead : leads) {
                 clients.addContent(new Element("firstName").setText(lead.getFirstName()));
@@ -61,18 +54,20 @@ public class RSSFeed {
                 clients.addContent(new Element("phone").setText(lead.getPhone()));
             }
             root.addContent(clients);
-
         }
-        document.setContent(root);
-        //XMLOutputter outputter = new XMLOutputter();
-        //outputter.output(document, System.out);
 
+        document.setContent(root);
         return document;
     }
 
-    public static String toString(Document doc) {
-       return new XMLOutputter(Format.getPrettyFormat() ).outputString(doc);
+    public static String toString(Document doc) throws IOException {
+        XMLOutputter xmlOutput = new XMLOutputter();
+        String xmlString = null;
+        xmlOutput.setFormat(Format.getPrettyFormat());
+        xmlString=  xmlOutput.outputString(doc);
+        return  xmlString;
     }
+
     public void getPotentialClients() throws DatatypeConfigurationException, IOException, URISyntaxException, ParseException, JDOMException, InterruptedException {
         Document document = createFeedForClients();
 

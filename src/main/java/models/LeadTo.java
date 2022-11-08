@@ -101,7 +101,6 @@ public class LeadTo {
     }
 
     public GeographicPointTo getGeoGraphicPointTo() throws URISyntaxException, IOException, InterruptedException, IOException, URISyntaxException {
-        System.out.println(this);
         String myCity = this.city.replace(" " , "+");
         String myCountry = this.country.replace(" " , "+");
         String myPostalCode = this.postalCode.replace(" " , "+");
