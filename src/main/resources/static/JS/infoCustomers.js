@@ -16,6 +16,19 @@ $(document).ready(function() {
 
       writeCustomerNotice(userNameSending, annualRevenueSending, streetSending, postalCodeSending, citySending, countrySending, creationDateSending.substring(0, 10), geographicPointSending, stateSending, phoneSending);
     });
+
+    $('#boutonData').change(function() {
+        if(this.checked) {
+            $("#dataXml").hide();
+            $("#dataText").show();
+            $('#typeData').text("TEXT");
+        } else {
+            console.log("DisChecked !");
+            $("#dataXml").show();
+            $("#dataText").hide();
+            $('#typeData').text("XML");
+        }
+    });
 });
 
 function writeCustomerNotice(userNameSending, annualRevenueSending, streetSending, postalCodeSending, citySending, countrySending, creationDateSending, geographicPointSending, stateSending, phoneSending) {

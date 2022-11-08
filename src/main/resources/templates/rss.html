@@ -13,16 +13,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
-<body id="page-top" style="background-color: #5D6D7E;">
+<body id="page-top">
     <!-- LA BARRE DE NAVIAGATION -->
     <div th:replace="fragments/Navbar :: nav"></div>
+
+    <!-- LES CAROUSELS POUR DEFILER LES IMAGES -->
+    <div th:replace="fragments/caroussel :: caroussel"></div>
 
     <!-- LE CONTENU DE CHAQUE PAGE -->
     <div id="page-accueil" class="card pt-5">
         <div id="contenu" class="container mt-3 mb-3">
-            <h1>List Of Last Potential Clients</h1>
+            <h1>Last Potential Clients</h1>
+            <span class="card-title display-26 text-secondary me-2 font-weight-600">Type of Data: <label id="typeData">XML</label></span> <br />
+            <label class="switch">
+                <input id="boutonData" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+
             <hr />
-            <pre class="row" th:text="${potentialClient}"> </pre>
+
+            <pre id="dataXml" class="row" th:text="${potentialClientXml}" />
+            <pre id="dataText" class="row" th:text="${potentialClientText}" style="display: none;" />
         </div>
     </div>
 
