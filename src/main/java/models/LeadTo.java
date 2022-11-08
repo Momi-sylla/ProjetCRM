@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class LeadTo {
+
     private String firstName;
     private String lastName;
     private double annualRevenue;
@@ -112,16 +113,16 @@ public class LeadTo {
                 .build();
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> getResponses = client.send(getReq, HttpResponse.BodyHandlers.ofString());
-        JSONArray results = new JSONArray(getResponses.body());
 
-        if (results.length() > 0) {
-            JSONObject locations = (JSONObject) results.get(0);
-            this.geoGraphicPointTo = new GeographicPointTo((locations.getDouble("lat")), locations.getDouble("lon"));
-            return geoGraphicPointTo;
-        } else {
-          //  System.out.println("Address '" + this.street.replace("+", " ") + ", " + this.postalCode + " " + this.city + "' not found!");
-            return null;
+        if(getResponses.body().getClass().isArray()) {
+            JSONArray results = new JSONArray(getResponses.body());
+            if (results.length() > 0) {
+                JSONObject locations = (JSONObject) results.get(0);
+                this.geoGraphicPointTo = new GeographicPointTo((locations.getDouble("lat")), locations.getDouble("lon"));
+                return geoGraphicPointTo;
+            }
         }
+        return null;
     }
 
     public void setGeoGraphicPointTo(GeographicPointTo geoGraphicPointTO) {

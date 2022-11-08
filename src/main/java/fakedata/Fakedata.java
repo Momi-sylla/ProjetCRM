@@ -36,8 +36,8 @@ public class Fakedata {
 
     public XMLGregorianCalendar generateRandomDate() throws DatatypeConfigurationException, ParseException {
         Random random = new Random();
-        String begin = "1995-01-01";
-        String end = "2022-01-01";
+        String begin = "2022-11-06";
+        String end = "2022-11-07";
        Date d1 = VirtualCRMMappers.mapStringToDate(begin);
         Date d2 = VirtualCRMMappers.mapStringToDate(end);
         long longdate = d1.getTime() + Math.round(Math.random() * (d2.getTime() - d1.getTime()));

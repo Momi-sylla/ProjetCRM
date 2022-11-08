@@ -4,6 +4,7 @@ import gen.Lead;
 import impl.VirtualCRMServiceImpl;
 import mappers.VirtualCRMMappers;
 import models.LeadInfo;
+import models.RSSFeed;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +53,13 @@ public class CRMServiceController {
         model.addAttribute("nbCustomers", leadsByDate.size());
         model.addAttribute("customers", leadsByDate);
         return "leadsByDate";
+    }
+
+    @GetMapping("/rss")
+    public String getLastPotentialClients(Model model) throws Exception {
+        RSSFeed rssFeed = new RSSFeed();
+        model.addAttribute("potentialClient", rssFeed.toString(rssFeed.createFeedForClients()));
+        return "rss";
     }
 
 }

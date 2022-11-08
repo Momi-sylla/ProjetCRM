@@ -87,7 +87,11 @@
 			<artifactId>jdom</artifactId>
 			<version>2.0.2</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.rometools</groupId>
+			<artifactId>rome</artifactId>
+			<version>1.8.0</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime -->
 		<dependency>
 			<groupId>org.glassfish.jaxb</groupId>
