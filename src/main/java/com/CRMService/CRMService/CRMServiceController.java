@@ -17,6 +17,7 @@ import java.util.List;
 //@RestController
 @Controller
 public class CRMServiceController {
+
     private List<Lead> leads = new ArrayList<>();
     private List<Lead> leadsByDate = new ArrayList<>();
 

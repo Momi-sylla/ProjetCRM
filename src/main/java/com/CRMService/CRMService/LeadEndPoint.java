@@ -17,6 +17,7 @@ import java.text.ParseException;
 
 @Endpoint
 public class LeadEndPoint {
+
     private static final String NAMESPACE_URI= "http://www.internalLead.com/springsoap/gen";
     public InternalCRM internalCRM;
 
@@ -40,4 +41,5 @@ public class LeadEndPoint {
         response.setLead(this.internalCRM.getLeadsByDateInFakeData(request.getStartDate().toGregorianCalendar(), request.getEndDate().toGregorianCalendar()));
         return response;
     }
+
 }

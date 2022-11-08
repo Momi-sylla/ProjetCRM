@@ -87,6 +87,7 @@ public class VirtualCRMMappers {
         }
         return null;
     }
+
     public static Date mapStringToDate(String dateStr) throws ParseException {
         int index = dateStr.indexOf("+");
         if(index != -1) {
@@ -103,4 +104,5 @@ public class VirtualCRMMappers {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(date);
     }
+
 }

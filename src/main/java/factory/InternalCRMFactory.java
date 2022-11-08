@@ -12,4 +12,5 @@ public class InternalCRMFactory implements ProxyFactory {
     public Proxy createProxy() throws IOException, DatatypeConfigurationException, ParseException {
         return InternalCRM.getInternalCRM();
     }
+
 }

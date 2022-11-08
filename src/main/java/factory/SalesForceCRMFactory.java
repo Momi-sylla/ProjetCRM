@@ -11,4 +11,5 @@ public class SalesForceCRMFactory implements ProxyFactory {
     public Proxy createProxy() throws IOException, URISyntaxException, InterruptedException {
         return SalesForceCRM.getSalesForceCRM();
     }
+
 }

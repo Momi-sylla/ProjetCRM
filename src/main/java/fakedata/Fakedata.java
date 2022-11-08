@@ -34,7 +34,7 @@ public class Fakedata {
         Random random = new Random();
         String begin = "2022-11-07";
         String end = "2022-11-08";
-       Date d1 = VirtualCRMMappers.mapStringToDate(begin);
+        Date d1 = VirtualCRMMappers.mapStringToDate(begin);
         Date d2 = VirtualCRMMappers.mapStringToDate(end);
         long longdate = d1.getTime() + Math.round(Math.random() * (d2.getTime() - d1.getTime()));
         Date randomDate = new Date(longdate);
@@ -53,4 +53,5 @@ public class Fakedata {
         setDatasDate();
         return leadsData;
     }
+
 }

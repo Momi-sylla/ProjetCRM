@@ -38,4 +38,5 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public XsdSchema leadSchema() {
         return new SimpleXsdSchema(new ClassPathResource("leadSchema.xsd"));
     }
+
 }

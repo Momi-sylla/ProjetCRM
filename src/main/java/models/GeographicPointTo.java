@@ -1,6 +1,7 @@
 package models;
 
 public class GeographicPointTo {
+
     private double latitude;
     private double longitude;
 

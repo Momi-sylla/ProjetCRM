@@ -8,5 +8,7 @@ import java.net.URISyntaxException;
 import java.text.ParseException;
 
 public interface ProxyFactory {
+
     public Proxy createProxy() throws IOException, URISyntaxException, InterruptedException, DatatypeConfigurationException, ParseException;
+
 }
