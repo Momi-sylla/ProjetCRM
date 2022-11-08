@@ -47,11 +47,20 @@ public class RSSFeed {
             Element clients = new Element("clients");
 
             for (Lead lead : leads) {
-                clients.addContent(new Element("firstName").setText(lead.getFirstName()));
-                clients.addContent(new Element("lastName").setText(lead.getLastName()));
-                clients.addContent(new Element("company").setText(lead.getCompany()));
-                clients.addContent(new Element("creationDate").setText(VirtualCRMMappers.mapCalendarToDateString(lead.getCreationDate().toGregorianCalendar())));
-                clients.addContent(new Element("phone").setText(lead.getPhone()));
+                Element client = new Element("client");
+                Element title = new Element("title");
+                title.addContent(new Element("firstName").setText(lead.getFirstName()));
+                title.addContent(new Element("lastName").setText(lead.getLastName()));
+                title.addContent(new Element("company").setText(lead.getCompany()));
+
+                Element desc= new Element("description");
+                desc.addContent(new Element("phone").setText(lead.getPhone()));
+                Element pubDate= new Element("pubDate");
+                pubDate.addContent(new Element("creationDate").setText(VirtualCRMMappers.mapCalendarToDateString(lead.getCreationDate().toGregorianCalendar())));
+                client.addContent(title);
+                client.addContent(desc);
+                client.addContent(pubDate);
+                clients.addContent(client);
             }
             root.addContent(clients);
         }

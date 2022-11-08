@@ -58,7 +58,8 @@ public class CRMServiceController {
     @GetMapping("/rss")
     public String getLastPotentialClients(Model model) throws Exception {
         RSSFeed rssFeed = new RSSFeed();
-        model.addAttribute("potentialClient", rssFeed.toString(rssFeed.createFeedForClients()));
+        model.addAttribute("potentialClientXml", rssFeed.toString(rssFeed.createFeedForClients()));
+        model.addAttribute("potentialClientText", rssFeed.toString(rssFeed.createFeedForClients()));
         return "rss";
     }
 
