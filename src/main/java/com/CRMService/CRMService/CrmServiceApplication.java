@@ -1,6 +1,7 @@
 package com.CRMService.CRMService;
 
 import models.RSSFeed;
+import org.jdom2.Document;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

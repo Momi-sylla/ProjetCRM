@@ -8,6 +8,9 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.XML;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;;
@@ -19,10 +22,6 @@ import java.util.Date;
 import java.util.List;
 
 public class RSSFeed {
-
-    private String title;
-    private String description;
-    private String pubDate;
 
     List<Lead> leads = new ArrayList<>();
     public Document createFeedForClients() throws DatatypeConfigurationException, IOException, URISyntaxException, ParseException, InterruptedException, JDOMException {
@@ -77,9 +76,32 @@ public class RSSFeed {
         return  xmlString;
     }
 
-    public void getPotentialClients() throws DatatypeConfigurationException, IOException, URISyntaxException, ParseException, JDOMException, InterruptedException {
-        Document document = createFeedForClients();
+    public List<RSSFeedText> getPotentialClients(Document document) throws DatatypeConfigurationException, IOException, URISyntaxException, ParseException, JDOMException, InterruptedException {
+    List<RSSFeedText> feedTexts = new ArrayList<>();
+        String docString = toString(document);
+        JSONObject feed= (JSONObject) XML.toJSONObject(docString).get("feed");
+        System.out.println(feed);
+        if(feed.get("clients")!=null){
+            JSONObject clients = (JSONObject) feed.get("clients");
+            System.out.println(clients.get("client"));
+            if(clients.get("client").getClass().getName().equals("org.json.JSONArray")){
+                System.out.println("yes");
+                JSONArray client= (JSONArray) clients.get("client");
+                for(int i=0;i<client.length();i++){
+                    RSSFeedText rssFeedText = new RSSFeedText();
+                    JSONObject cli = client.getJSONObject(i);
+                   JSONObject description = cli.getJSONObject("description");
+                    rssFeedText.setDescription(description.getString("phone"));
+                    JSONObject titleNode = cli.getJSONObject("title");
+                    rssFeedText.setTitle(titleNode.getString("firstName")+" "+titleNode.getString("lastName")+ " - "+titleNode.getString("company"));
+                    JSONObject pubDateNode = cli.getJSONObject("pubDate");
+                    rssFeedText.setPubDate(pubDateNode.getString("creationDate"));
+                    feedTexts.add(rssFeedText);
+                }
+            }
+        }
 
+       return feedTexts;
     }
 
 }

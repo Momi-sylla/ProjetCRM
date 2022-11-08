@@ -5,6 +5,7 @@ import impl.VirtualCRMServiceImpl;
 import mappers.VirtualCRMMappers;
 import models.LeadInfo;
 import models.RSSFeed;
+import org.jdom2.Document;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -58,8 +59,10 @@ public class CRMServiceController {
     @GetMapping("/rss")
     public String getLastPotentialClients(Model model) throws Exception {
         RSSFeed rssFeed = new RSSFeed();
-        model.addAttribute("potentialClientXml", rssFeed.toString(rssFeed.createFeedForClients()));
-        model.addAttribute("potentialClientText", rssFeed.toString(rssFeed.createFeedForClients()));
+        Document doc =rssFeed.createFeedForClients();
+        rssFeed.getPotentialClients(doc);
+        model.addAttribute("potentialClientXml", rssFeed.toString(doc));
+        model.addAttribute("potentialClientText", rssFeed.getPotentialClients(doc));
         return "rss";
     }
 
