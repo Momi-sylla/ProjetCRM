@@ -23,7 +23,6 @@ $(document).ready(function() {
             $("#dataText").show();
             $('#typeData').text("TEXT");
         } else {
-            console.log("DisChecked !");
             $("#dataXml").show();
             $("#dataText").hide();
             $('#typeData').text("XML");

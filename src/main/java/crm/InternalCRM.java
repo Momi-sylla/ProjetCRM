@@ -25,6 +25,7 @@ import java.util.*;
 
 @Component
 public class InternalCRM implements Proxy {
+
     private List<Lead> fakeDataOfLeads;
     private String apiRequest;
     private static InternalCRM instance = null;
@@ -50,7 +51,6 @@ public class InternalCRM implements Proxy {
         }
         return matchedLeads;
     }
-
 
     @Override
     public List<Lead> getLeads(double lowAnnualRevenue, double highAnnualRevenue, String state) throws Exception {
@@ -81,6 +81,7 @@ public class InternalCRM implements Proxy {
         if (responses.statusCode() == 200) {
             leads = recupInternalLead(responses);
         }
+
         return leads;
     }
 
@@ -99,8 +100,9 @@ public class InternalCRM implements Proxy {
         List<Element> leadsElement= e.getChildren();
         for(int i=0;i<leadsElement.size();i++){
             List<Element> el = leadsElement.get(i).getChildren();
-            Iterator elIterator = el.iterator();
             LeadTo leadTo = new LeadTo();
+
+            Iterator elIterator = el.iterator();
             while (elIterator.hasNext()){
                 Element  lead = (Element) elIterator.next();
                 if(lead.getName().equals("firstName")){
@@ -137,15 +139,14 @@ public class InternalCRM implements Proxy {
                     leadTo.setCreationDate(VirtualCRMMappers.mapStringToDate(lead.getText()));
                 }
             }
-            leads.add(VirtualCRMMappers.mapLeadToFromLead(leadTo));
 
+            leads.add(VirtualCRMMappers.mapLeadToFromLead(leadTo));
         }
         return leads;
     }
 
     @Override
     public List<Lead> getLeadsByDate(Calendar StartDate, Calendar endDate) throws IOException, InterruptedException, URISyntaxException, DatatypeConfigurationException, JDOMException, ParseException {
-
         ArrayList<Lead> leads= new ArrayList<>();
         String startDateStr = VirtualCRMMappers.mapCalendarToDateString(StartDate);
         String endDateStr = VirtualCRMMappers.mapCalendarToDateString(endDate);
@@ -174,12 +175,13 @@ public class InternalCRM implements Proxy {
         if (responses.statusCode() == 200) {
             leads = recupInternalLead(responses);
         }
-        return leads;
 
+        return leads;
     }
 
     public List<Lead> getLeadsByDateInFakeData(Calendar StartDate, Calendar endDate) {
         List<Lead> matchedLeads = new ArrayList<>();
+
         for(Lead lead : this.fakeDataOfLeads){
             long diff1 = getMillisBetween(StartDate,lead.getCreationDate().toGregorianCalendar());
             long diff2 = getMillisBetween(endDate,lead.getCreationDate().toGregorianCalendar());
@@ -187,6 +189,7 @@ public class InternalCRM implements Proxy {
                 matchedLeads.add(lead);
             }
         }
+
         return matchedLeads;
     }
     public static long getMillisBetween(Calendar startDate, Calendar endDate) {
@@ -194,6 +197,7 @@ public class InternalCRM implements Proxy {
         long start = startDate.getTimeInMillis();
         return end - start;
     }
+
     public List<Lead> getFakeDataOfLeads() {
         return fakeDataOfLeads;
     }

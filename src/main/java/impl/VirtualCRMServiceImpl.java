@@ -18,6 +18,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 public class VirtualCRMServiceImpl implements VirtualCRMService {
+
     private Hashtable<String, ProxyFactory> proxyFactoryList;
     private static VirtualCRMServiceImpl instance = null;
     private List<Proxy> proxyList;

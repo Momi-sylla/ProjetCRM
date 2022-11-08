@@ -9,7 +9,6 @@ public class CrmServiceApplication {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(CrmServiceApplication.class, args);
-
 	}
 
 }

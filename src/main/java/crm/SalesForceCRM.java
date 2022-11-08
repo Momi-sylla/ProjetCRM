@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.util.*;
 
 public class SalesForceCRM implements Proxy {
+
     private final String CLIENT_ID = "3MVG9t0sl2P.pByp0SnSA6Bzh2XDVY0n37pe_gz.hrStcxxQSVIBhVP20m71vfl92KK7.whRIvdhvbrVbIw.v";
     private final String CLIENT_SECRET = "89DAE17221F8CDA71D4BFD665060A1033A902B603B9615A823ED18D7DD4A0A1E";
     private final String USERNAME = "msylla@univ-angers.fr";
@@ -58,12 +59,12 @@ public class SalesForceCRM implements Proxy {
         String sqlRequest = "q=SELECT+FirstName,LastName,phone,street,postalcode,city,CreatedDate,country,AnnualRevenue+FROM+Lead+where+AnnualRevenue+"+sup+"+"+low+"+and+"+"AnnualRevenue+"+inf+"+"+high;
         leads = recupLeads(getSaleforceResponses(sqlRequest));
 
-
         return leads;
     }
 
     public ArrayList<Lead> recupLeads(JSONArray records) throws URISyntaxException, IOException, InterruptedException, ParseException, DatatypeConfigurationException {
         ArrayList<Lead> leads= new ArrayList<>();
+
         for(Object record : records) {
             LeadTo lead = new LeadTo();
             lead.setFirstName(((JSONObject) record).getString("FirstName"));
@@ -81,6 +82,7 @@ public class SalesForceCRM implements Proxy {
             lead.setCreationDate(date);
             leads.add(VirtualCRMMappers.mapLeadToFromLead(lead));
         }
+
         return leads;
     }
 
@@ -99,12 +101,13 @@ public class SalesForceCRM implements Proxy {
             JSONObject results = new JSONObject(getResponses.body());
             records = results.getJSONArray("records");
         }
+
         return records;
     }
 
     @Override
     public List<Lead> getLeadsByDate(Calendar StartDate, Calendar endDate) throws IOException, InterruptedException, URISyntaxException, DatatypeConfigurationException, ParseException {
-        ArrayList<Lead> leads= new ArrayList<>();
+        ArrayList<Lead> leads = new ArrayList<>();
         //encodage des caractères speciaux
         String sup = URLEncoder.encode(">","UTF-8");
         String inf = URLEncoder.encode("<","UTF-8");
