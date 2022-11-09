@@ -85,7 +85,6 @@ public class RSSFeed {
             JSONObject clients = (JSONObject) feed.get("clients");
             System.out.println(clients.get("client"));
             if(clients.get("client").getClass().getName().equals("org.json.JSONArray")){
-                System.out.println("yes");
                 JSONArray client= (JSONArray) clients.get("client");
                 for(int i=0;i<client.length();i++){
                     RSSFeedText rssFeedText = new RSSFeedText();
