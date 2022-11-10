@@ -13,8 +13,10 @@ $(document).ready(function() {
       var geographicPointSending = divInfoLeadAboutCustomer.children[7].innerHTML;
       var stateSending = divInfoLeadAboutCustomer.children[8].innerHTML;
       var phoneSending = divInfoLeadAboutCustomer.children[9].innerHTML;
+      var companySending = divInfoLeadAboutCustomer.children[10].innerHTML;
+      console.log("Company value : " + companySending);
 
-      writeCustomerNotice(userNameSending, annualRevenueSending, streetSending, postalCodeSending, citySending, countrySending, creationDateSending.substring(0, 10), geographicPointSending, stateSending, phoneSending);
+      writeCustomerNotice(userNameSending, annualRevenueSending, streetSending, postalCodeSending, citySending, countrySending, creationDateSending.substring(0, 10), geographicPointSending, stateSending, phoneSending, companySending);
     });
 
     $('#boutonData').change(function() {
@@ -30,7 +32,7 @@ $(document).ready(function() {
     });
 });
 
-function writeCustomerNotice(userNameSending, annualRevenueSending, streetSending, postalCodeSending, citySending, countrySending, creationDateSending, geographicPointSending, stateSending, phoneSending) {
+function writeCustomerNotice(userNameSending, annualRevenueSending, streetSending, postalCodeSending, citySending, countrySending, creationDateSending, geographicPointSending, stateSending, phoneSending, companySending) {
       $("#userName").text(userNameSending);
       $("#annualRevenue").text(annualRevenueSending);
       $("#street").text(streetSending);
@@ -41,4 +43,5 @@ function writeCustomerNotice(userNameSending, annualRevenueSending, streetSendin
       $("#geographicPoint").text(geographicPointSending);
       $("#state").text(stateSending);
       $("#phone").text(phoneSending);
+      $("#company").text(companySending);
 }
