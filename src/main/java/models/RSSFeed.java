@@ -24,6 +24,7 @@ import java.util.List;
 public class RSSFeed {
 
     List<Lead> leads = new ArrayList<>();
+
     public Document createFeedForClients() throws DatatypeConfigurationException, IOException, URISyntaxException, ParseException, InterruptedException, JDOMException {
         Document document = new Document();
         Element root = new Element("feed");
@@ -77,12 +78,13 @@ public class RSSFeed {
     }
 
     public List<RSSFeedText> getPotentialClients(Document document) throws DatatypeConfigurationException, IOException, URISyntaxException, ParseException, JDOMException, InterruptedException {
-    List<RSSFeedText> feedTexts = new ArrayList<>();
+        List<RSSFeedText> feedTexts = new ArrayList<>();
         String docString = toString(document);
         JSONObject feed= (JSONObject) XML.toJSONObject(docString).get("feed");
-        if(feed.has("clients")){
+
+        if(feed.has("clients")) {
             JSONObject clients = (JSONObject) feed.get("clients");
-            System.out.println(clients.get("client").getClass().getName());
+
             if(clients.get("client").getClass().getName().equals("org.json.JSONArray")){
                 JSONArray client= (JSONArray) clients.get("client");
                 for(int i=0;i<client.length();i++){
@@ -94,12 +96,10 @@ public class RSSFeed {
                     rssFeedText.setTitle(titleNode.getString("firstName")+" "+titleNode.getString("lastName")+ " - "+titleNode.getString("company"));
                     JSONObject pubDateNode = cli.getJSONObject("pubDate");
                     rssFeedText.setPubDate(pubDateNode.getString("creationDate"));
-                    System.out.println(pubDateNode.getString("creationDate"));
 
                     feedTexts.add(rssFeedText);
                 }
-            }
-            else if(clients.get("client").getClass().getName().equals("org.json.JSONObject")){
+            } else if(clients.get("client").getClass().getName().equals("org.json.JSONObject")) {
                 RSSFeedText rssFeedText = new RSSFeedText();
                 JSONObject cli = (JSONObject) clients.get("client");
                 JSONObject description = cli.getJSONObject("description");
@@ -108,7 +108,6 @@ public class RSSFeed {
                 rssFeedText.setTitle(titleNode.getString("firstName")+" "+titleNode.getString("lastName")+ " - "+titleNode.getString("company"));
                 JSONObject pubDateNode = cli.getJSONObject("pubDate");
                 rssFeedText.setPubDate(pubDateNode.getString("creationDate"));
-                System.out.println(pubDateNode.getString("creationDate"));
 
                 feedTexts.add(rssFeedText);
             }

@@ -33,15 +33,18 @@
             <hr />
 
             <pre id="dataXml" class="row" th:text="${potentialClientXml}" />
-            <pre id="dataText" class="row"   style="display: none;">
-                 <div class="card" th:each="client:${potentialClientText}">
-                <p class="card-text">
-                    <label th:text="${'Title : ' + client.title}" /> <br />
-                    <label th:text="${'Description : ' + client.description}" /> <br />
-                    <label th:text="${'PubDate : ' + client.pubDate}" /> <br />
-                </p>
-                 </div>
-            </pre>
+
+            <div class="col-lg-4 col-sm-6 mb-4" th:each="client:${potentialClientText}">
+                <div class="infoCustomers card h-100" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <label th:text="${'Title: ' + client.title}" /> <br />
+                            <label th:text="${'Description: [Phone: ' + client.description + ']' }" /> <br />
+                            <label th:text="${'PubDate: ' + client.pubDate}"  /> <br />
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
