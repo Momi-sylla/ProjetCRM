@@ -10,6 +10,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Fakedata {
@@ -42,11 +43,19 @@ public class Fakedata {
     }
 
     public void setDatasDate() throws DatatypeConfigurationException, ParseException {
-        Iterator iterator = leadsData.listIterator();
+        /*Iterator iterator = leadsData.listIterator();
         while(iterator.hasNext()){
             Lead l = (Lead) iterator.next();
             l.setCreationDate(generateRandomDate());
+        }*/
+        for(int i=0;i<leadsData.size()-1;i++){
+            leadsData.get(i).setCreationDate(generateRandomDate());
         }
+        int lastCLient = leadsData.size()-1;
+        long todayMillis = System.currentTimeMillis();
+        long dayToMillis = 86400000;
+        Date today = new Date(todayMillis-dayToMillis);
+        leadsData.get(lastCLient).setCreationDate(VirtualCRMMappers.mapDateToXMLGregorianCalendar(today));
     }
 
     public List<Lead>generateData() throws IOException, DatatypeConfigurationException, ParseException {

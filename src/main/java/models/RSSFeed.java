@@ -80,10 +80,8 @@ public class RSSFeed {
     List<RSSFeedText> feedTexts = new ArrayList<>();
         String docString = toString(document);
         JSONObject feed= (JSONObject) XML.toJSONObject(docString).get("feed");
-        System.out.println(feed);
-        if(feed.get("clients")!=null){
+        if(feed.has("clients")){
             JSONObject clients = (JSONObject) feed.get("clients");
-            System.out.println(clients.get("client"));
             if(clients.get("client").getClass().getName().equals("org.json.JSONArray")){
                 JSONArray client= (JSONArray) clients.get("client");
                 for(int i=0;i<client.length();i++){
