@@ -82,6 +82,7 @@ public class RSSFeed {
         JSONObject feed= (JSONObject) XML.toJSONObject(docString).get("feed");
         if(feed.has("clients")){
             JSONObject clients = (JSONObject) feed.get("clients");
+            System.out.println(clients.get("client").getClass().getName());
             if(clients.get("client").getClass().getName().equals("org.json.JSONArray")){
                 JSONArray client= (JSONArray) clients.get("client");
                 for(int i=0;i<client.length();i++){
@@ -93,8 +94,23 @@ public class RSSFeed {
                     rssFeedText.setTitle(titleNode.getString("firstName")+" "+titleNode.getString("lastName")+ " - "+titleNode.getString("company"));
                     JSONObject pubDateNode = cli.getJSONObject("pubDate");
                     rssFeedText.setPubDate(pubDateNode.getString("creationDate"));
+                    System.out.println(pubDateNode.getString("creationDate"));
+
                     feedTexts.add(rssFeedText);
                 }
+            }
+            else if(clients.get("client").getClass().getName().equals("org.json.JSONObject")){
+                RSSFeedText rssFeedText = new RSSFeedText();
+                JSONObject cli = (JSONObject) clients.get("client");
+                JSONObject description = cli.getJSONObject("description");
+                rssFeedText.setDescription(description.getString("phone"));
+                JSONObject titleNode = cli.getJSONObject("title");
+                rssFeedText.setTitle(titleNode.getString("firstName")+" "+titleNode.getString("lastName")+ " - "+titleNode.getString("company"));
+                JSONObject pubDateNode = cli.getJSONObject("pubDate");
+                rssFeedText.setPubDate(pubDateNode.getString("creationDate"));
+                System.out.println(pubDateNode.getString("creationDate"));
+
+                feedTexts.add(rssFeedText);
             }
         }
 

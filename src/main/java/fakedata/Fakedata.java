@@ -33,7 +33,7 @@ public class Fakedata {
 
     public XMLGregorianCalendar generateRandomDate() throws DatatypeConfigurationException, ParseException {
         Random random = new Random();
-        String begin = "2022-11-08";
+        String begin = "1995-01-01";
         String end = "2022-11-09";
         Date d1 = VirtualCRMMappers.mapStringToDate(begin);
         Date d2 = VirtualCRMMappers.mapStringToDate(end);
