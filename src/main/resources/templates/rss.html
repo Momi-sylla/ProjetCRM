@@ -34,7 +34,7 @@
 
             <pre id="dataXml" class="row" th:text="${potentialClientXml}" />
 
-            <div class="col-lg-4 col-sm-6 mb-4" th:each="client:${potentialClientText}">
+            <div id="dataText" style="display: none;" class="col-lg-4 col-sm-6 mb-4" th:each="client:${potentialClientText}">
                 <div class="infoCustomers card h-100" data-toggle="modal" data-target=".bd-example-modal-lg">
                     <div class="card-body">
                         <p class="card-text">
